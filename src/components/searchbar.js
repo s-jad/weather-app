@@ -1,5 +1,4 @@
-import { getCityWeatherData, updateCityWeatherData } from './api_interface';
-import { updateCurrentCity, updateCurrentCondition } from './display';
+import getCityWeatherData from './api_interface';
 
 export default function SearchBar() {
   const search = document.createElement('input');
@@ -8,9 +7,9 @@ export default function SearchBar() {
 
   search.addEventListener('keypress', (ev) => {
     if (ev.key === 'Enter') {
-      const newWeatherData = getCityWeatherData(search.value.trim());
-      updateCityWeatherData(newWeatherData);
+      getCityWeatherData(search.value.trim());
     }
   });
+
   return search;
 }
