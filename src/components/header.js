@@ -9,6 +9,17 @@ function currentCondition() {
     <h2 class="current-condition-text"></h2>
   `;
 
+  const currentConditionIcon = currentConditionContainer.querySelector('.current-condition-icon');
+  const currentConditionText = currentConditionContainer.querySelector('.current-condition-text');
+
+  currentConditionContainer.addEventListener('currentConditionApiResponse', (ev) => {
+    console.log("ev => ", ev);
+    const condition = ev.detail.condition;
+
+    currentConditionIcon.src = `https:${condition.icon}`;
+    currentConditionText.innerText = condition.text;
+  });
+
   return currentConditionContainer;
 }
 
@@ -24,17 +35,34 @@ function currentCity() {
     <p class="current-city local-time"></p>
   `;
 
+  const cityName = currentCityContainer.querySelector('.city-name');
+  const region = currentCityContainer.querySelector('.region');
+  const country = currentCityContainer.querySelector('.country');
+  const latLon = currentCityContainer.querySelector('.latitude-longitude');
+  const localTime = currentCityContainer.querySelector('.local-time');
+
+  currentCityContainer.addEventListener('currentCityApiResponse', (ev) => {
+    console.log("ev => ", ev);
+    const cityDetails = ev.detail.location;
+    cityName.innerText = cityDetails.name;
+    region.innerText = cityDetails.region;
+    country.innerText = cityDetails.country;
+    latLon.innerText = `${cityDetails.lat}, ${cityDetails.lon}`;
+    localTime.innerText = `Local time: ${cityDetails.localtime}`;
+  });
 
   return currentCityContainer;
 }
 
-
 export default function Header() {
   const header = document.createElement('header');
   header.className = 'site-header';
+  const cityCondition = document.createElement('div');
+  cityCondition.className = "city-condition-container";
 
-  header.appendChild(currentCity());
-  header.appendChild(currentCondition());
+  cityCondition.appendChild(currentCity());
+  cityCondition.appendChild(currentCondition());
+  header.appendChild(cityCondition);
   header.appendChild(SearchBar());
 
   return header;
