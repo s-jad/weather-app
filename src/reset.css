@@ -82,5 +82,4 @@ select {
 
 body {
     font-size: clamp(16px, calc(1.5rem + 0.4vw), 24px);
-    color: red; /* tests that it is all linked up properly - DELETE ME */
 }

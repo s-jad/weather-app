@@ -1,13 +1,7 @@
+import App from './components/app';
 import './reset.css'
-
-function App() {
-  const appContainer = document.createElement('div');
-  appContainer.classList.add('app-container');
-
-  return appContainer;
-}
+import './styles/app.css'
 
 document.body.appendChild(App());
-
 
 
