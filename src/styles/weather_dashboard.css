@@ -1,0 +1,29 @@
+.weather-dashboard {
+  width: 100%;
+  height: 80dvh;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 200px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid green;
+
+  & .day-card {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    border: 1px solid red;
+  }
+
+  & .astro-card {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    border: 1px solid blue;
+  }
+
+  & .timeline-outer {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    border: 1px solid orange;
+  }
+}
