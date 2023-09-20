@@ -4,9 +4,9 @@
   height: 80vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 200px 1fr;
-  gap: 1rem;
-  padding: 1rem;
+  grid-template-rows: 150px 1fr;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
   border: 1px solid green;
 
   & .day-card {
@@ -18,7 +18,36 @@
   & .astro-card {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    border: 1px solid blue;
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid hsla(0, 0% 0%, 0.3);
+    background-image: linear-gradient(-72deg, hsl(240, 50%, 20%), hsl(55, 90%, 80%));
+    padding: 1rem;
+    font-weight: 600;
+
+    & .sun-container {
+      position: relative;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+
+      & p {
+        text-align: left;
+      }
+    }
+
+    & .moon-container {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+
+      & p {
+        text-align: right;
+      }
+    }
   }
 
   & .timeline-outer {
