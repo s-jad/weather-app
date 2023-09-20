@@ -1,24 +1,16 @@
 import SearchBar from './searchbar';
 
-function currentCondition(header) {
+function currentConditionIcon() {
   const currentIcon = new Image();
   currentIcon.className = 'current-condition-icon';
 
   const currentText = document.createElement('h3');
   currentText.className = 'current-condition-text';
 
-  header.addEventListener('currentConditionApiResponse', (ev) => {
-    const { condition } = ev.detail;
-
-    currentIcon.src = `https:${condition.icon}`;
-    currentText.innerText = condition.text;
-  });
-
-  const currentConditionContainer = document.createElement('div');
-  currentConditionContainer.className = 'condition-flex';
-  currentConditionContainer.appendChild(currentIcon);
-  currentConditionContainer.appendChild(currentText);
-  return currentConditionContainer;
+  return {
+    currentIcon,
+    currentText,
+  };
 }
 
 function currentCity(header) {
@@ -28,8 +20,10 @@ function currentCity(header) {
   country.className = 'current-city country';
   const latLon = document.createElement('h3');
   latLon.className = 'current-city latitude-longitude';
-  const localTime = document.createElement('h3');
+  const localTime = document.createElement('h1');
   localTime.className = 'current-city local-time';
+  const localDate = document.createElement('h2');
+  localDate.className = 'current-city local-date';
 
   header.addEventListener('currentCityApiResponse', (ev) => {
     const { location } = ev.detail;
@@ -37,7 +31,10 @@ function currentCity(header) {
     cityName.innerText = location.name;
     country.innerText = `${location.country}`;
     latLon.innerText = `${location.lat}, ${location.lon}`;
-    localTime.innerText = `${location.localtime}`;
+    const time = location.localtime.split(' ');
+
+    localTime.innerText = `${time[1]}`;
+    localDate.innerText = `${time[0]}`;
   });
 
   return {
@@ -45,6 +42,7 @@ function currentCity(header) {
     country,
     latLon,
     localTime,
+    localDate,
   };
 }
 
@@ -59,8 +57,19 @@ export default function Header() {
   });
 
   header.appendChild(SearchBar());
-  const conditionFlex = currentCondition(header);
-  header.appendChild(conditionFlex);
+  const { currentIcon, currentText } = currentConditionIcon();
+
+  const conditionIconContainer = document.createElement('div');
+  conditionIconContainer.className = 'condition-flex';
+  conditionIconContainer.appendChild(currentIcon);
+  conditionIconContainer.appendChild(currentText);
+
+  header.addEventListener('currentConditionApiResponse', (ev) => {
+    const { current } = ev.detail;
+
+    currentIcon.src = `https:${current.condition.icon}`;
+    currentText.innerText = current.condition.text;
+  });
 
   return header;
 }
