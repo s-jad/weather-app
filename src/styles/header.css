@@ -1,15 +1,13 @@
 .site-header {
   width: 100%;
-  height: 170px;
-  height: 170px;
+  max-height: 20vh;
   border: 1px solid hsla(180, 50%, 50%, 0.5);
   padding: 1rem 3rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows : 40px 40px 40px;
+  grid-template-rows : repeat(2, min-content) 50px;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
 
   & .city-name {
     grid-column: 1 / 2;
