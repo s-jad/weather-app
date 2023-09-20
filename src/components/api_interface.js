@@ -1,6 +1,5 @@
 function handleHeaderEventDispatch(location, condition) {
-  const currentCityContainer = document.body.querySelector('.current-city-container');
-  const currentConditionContainer = document.body.querySelector('.current-condition-container');
+  const header = document.body.querySelector('.site-header');
 
   const currentCityResponseEvent = new CustomEvent('currentCityApiResponse', {
     detail: {
@@ -14,8 +13,8 @@ function handleHeaderEventDispatch(location, condition) {
     },
   });
 
-  currentCityContainer.dispatchEvent(currentCityResponseEvent);
-  currentConditionContainer.dispatchEvent(currentConditionResponseEvent);
+  header.dispatchEvent(currentCityResponseEvent);
+  header.dispatchEvent(currentConditionResponseEvent);
 }
 
 export default async function getCityWeatherData(city) {
@@ -27,6 +26,6 @@ export default async function getCityWeatherData(city) {
 
     handleHeaderEventDispatch(location, current.condition);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }

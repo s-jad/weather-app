@@ -1,69 +1,66 @@
-import SearchBar from "./searchbar";
+import SearchBar from './searchbar';
 
-function currentCondition() {
-  const currentConditionContainer = document.createElement('div');
-  currentConditionContainer.className = 'current-condition-container';
+function currentCondition(header) {
+  const currentIcon = new Image();
+  currentIcon.className = 'current-condition-icon';
 
-  currentConditionContainer.innerHTML = `
-    <img class="current-condition-icon" src="#" alt="Current weather icon">
-    <h2 class="current-condition-text"></h2>
-  `;
+  const currentText = document.createElement('h3');
+  currentText.className = 'current-condition-text';
 
-  const currentConditionIcon = currentConditionContainer.querySelector('.current-condition-icon');
-  const currentConditionText = currentConditionContainer.querySelector('.current-condition-text');
+  header.addEventListener('currentConditionApiResponse', (ev) => {
+    const { condition } = ev.detail;
 
-  currentConditionContainer.addEventListener('currentConditionApiResponse', (ev) => {
-    console.log("ev => ", ev);
-    const condition = ev.detail.condition;
-
-    currentConditionIcon.src = `https:${condition.icon}`;
-    currentConditionText.innerText = condition.text;
+    currentIcon.src = `https:${condition.icon}`;
+    currentText.innerText = condition.text;
   });
 
+  const currentConditionContainer = document.createElement('div');
+  currentConditionContainer.className = 'condition-flex';
+  currentConditionContainer.appendChild(currentIcon);
+  currentConditionContainer.appendChild(currentText);
   return currentConditionContainer;
 }
 
-function currentCity() {
-  const currentCityContainer = document.createElement('div');
-  currentCityContainer.className = 'current-city-container';
+function currentCity(header) {
+  const cityName = document.createElement('h1');
+  cityName.className = 'current-city city-name';
+  const country = document.createElement('h2');
+  country.className = 'current-city country';
+  const latLon = document.createElement('h3');
+  latLon.className = 'current-city latitude-longitude';
+  const localTime = document.createElement('h3');
+  localTime.className = 'current-city local-time';
 
-  currentCityContainer.innerHTML = `
-    <h1 class="current-city city-name"></h1>
-    <h2 class="current-city region"></h2>
-    <p class="current-city country"></p>
-    <p class="current-city latitude-longitude"></p>
-    <p class="current-city local-time"></p>
-  `;
+  header.addEventListener('currentCityApiResponse', (ev) => {
+    const { location } = ev.detail;
 
-  const cityName = currentCityContainer.querySelector('.city-name');
-  const region = currentCityContainer.querySelector('.region');
-  const country = currentCityContainer.querySelector('.country');
-  const latLon = currentCityContainer.querySelector('.latitude-longitude');
-  const localTime = currentCityContainer.querySelector('.local-time');
-
-  currentCityContainer.addEventListener('currentCityApiResponse', (ev) => {
-    console.log("ev => ", ev);
-    const cityDetails = ev.detail.location;
-    cityName.innerText = cityDetails.name;
-    region.innerText = cityDetails.region;
-    country.innerText = cityDetails.country;
-    latLon.innerText = `${cityDetails.lat}, ${cityDetails.lon}`;
-    localTime.innerText = `Local time: ${cityDetails.localtime}`;
+    cityName.innerText = location.name;
+    country.innerText = `${location.country}`;
+    latLon.innerText = `${location.lat}, ${location.lon}`;
+    localTime.innerText = `${location.localtime}`;
   });
 
-  return currentCityContainer;
+  return {
+    cityName,
+    country,
+    latLon,
+    localTime,
+  };
 }
 
 export default function Header() {
   const header = document.createElement('header');
   header.className = 'site-header';
-  const cityCondition = document.createElement('div');
-  cityCondition.className = "city-condition-container";
 
-  cityCondition.appendChild(currentCity());
-  cityCondition.appendChild(currentCondition());
-  header.appendChild(cityCondition);
+  const cityData = currentCity(header);
+
+  Object.keys(cityData).forEach((key) => {
+    header.appendChild(cityData[key]);
+  });
+
   header.appendChild(SearchBar());
+  const conditionFlex = currentCondition(header);
+  header.appendChild(conditionFlex);
 
   return header;
 }
