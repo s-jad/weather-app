@@ -34,12 +34,22 @@ function getDayCardIcons() {
   rainDropIcon.src = '../assets/imgs/raindrop.png';
   rainDropIcon.className = 'day-card-icon rain-drop-icon';
 
+  const uvIcon = new Image();
+  uvIcon.src = '../assets/imgs/uv.png';
+  uvIcon.className = 'day-card-icon uv-icon';
+
+  const pressureIcon = new Image();
+  pressureIcon.src = '../assets/imgs/pressure.png';
+  pressureIcon.className = 'day-card-icon pressure-icon';
+
   return {
     thermometerIcon,
     windIcon,
     visIcon,
     snowIcon,
     rainDropIcon,
+    uvIcon,
+    pressureIcon,
   };
 }
 
@@ -83,6 +93,8 @@ export default function DayCard() {
     visIcon,
     snowIcon,
     rainDropIcon,
+    uvIcon,
+    pressureIcon,
   } = getDayCardIcons();
 
   const {
@@ -124,12 +136,19 @@ export default function DayCard() {
   windGrid.appendChild(maxGust);
   windGrid.appendChild(windDirection);
 
+  const uvFlex = document.createElement('div');
+  uvFlex.className = 'uv-flex';
   const uv = document.createElement('p');
   uv.className = 'day-card-text uv-light';
-  uv.innerText = 'UV:';
+  uvFlex.appendChild(uvIcon);
+  uvFlex.appendChild(uv);
+
+  const pressureFlex = document.createElement('div');
+  pressureFlex.className = 'pressure-flex';
   const pressure = document.createElement('p');
   pressure.className = 'day-card-text pressure';
-  pressure.innerText = 'Pressure:';
+  pressureFlex.appendChild(pressureIcon);
+  pressureFlex.appendChild(pressure);
 
   const visFlex = document.createElement('div');
   visFlex.className = 'vis-flex';
@@ -140,18 +159,18 @@ export default function DayCard() {
 
   const lowerFlex = document.createElement('div');
   lowerFlex.className = 'lower-flex';
-  const snowContainer = document.createElement('div');
-  snowContainer.className = 'snow-percentage-flex';
+  const snowFlex = document.createElement('div');
+  snowFlex.className = 'snow-percentage-flex';
   const percentageSnow = document.createElement('p');
   percentageSnow.className = 'day-card-text percent-snow';
 
-  snowContainer.appendChild(snowIcon);
-  snowContainer.appendChild(percentageSnow);
+  snowFlex.appendChild(snowIcon);
+  snowFlex.appendChild(percentageSnow);
 
-  lowerFlex.appendChild(snowContainer);
+  lowerFlex.appendChild(snowFlex);
   lowerFlex.appendChild(visFlex);
-  lowerFlex.appendChild(uv);
-  lowerFlex.appendChild(pressure);
+  lowerFlex.appendChild(uvFlex);
+  lowerFlex.appendChild(pressureFlex);
 
   dayCard.appendChild(tempGrid);
   dayCard.appendChild(humidityGrid);
@@ -173,8 +192,8 @@ export default function DayCard() {
     percentageRain.innerText = `Chance: ${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
     visibility.innerText = `${day.avgvis_km}km`;
-    uv.innerText = `UV: ${day.uv}`;
-    pressure.innerText = `Pressure: ${current.pressure_mb}mb`;
+    uv.innerText = `${day.uv}`;
+    pressure.innerText = `${current.pressure_mb}mb`;
   });
 
   return dayCard;

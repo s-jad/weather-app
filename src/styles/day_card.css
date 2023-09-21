@@ -108,8 +108,8 @@
     align-items: center;
     justify-content: space-evenly;
     gap: 1rem;
-    
- 
+    border-top: 2px solid orange;
+    padding-top: 1rem;
 
     & .vis-flex {
       display: flex;
@@ -122,16 +122,17 @@
       gap: 1rem;
     }
 
-    & .rain-percentage-flex {
+    & .uv-flex {
+      display: flex;
+      gap: 1rem;
+    }
+
+    & .pressure-flex {
       display: flex;
       gap: 1rem;
     }
   }
 
-  & .uv-light {
-    grid-column: 1 / 2;
-    grid-row: 4 / 5;
-  }
 
   & img.day-card-icon {
     height: 30px;
