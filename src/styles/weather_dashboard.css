@@ -4,7 +4,7 @@
   height: 80vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 150px 1fr;
+  grid-template-rows: 150px 30px 1fr;
   gap: 0.5rem;
   padding-top: 0.5rem;
   border: 1px solid green;
@@ -20,9 +20,53 @@
     grid-row: 1 / 2;
   }
 
+  & .timeline-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 2rem;
+    
+    & .cover-container {
+      position: relative;
+      width: 80px;
+      height: 40px;
+      
+      & .cover {
+        position: absolute;
+        inset: 0;
+        background: hsla(0, 0%, 0%, 0.3);
+      }
+
+      & .invisible-radio:checked ~ .cover {
+        background: transparent;
+      }
+      
+      & .timeline-button {
+        position: absolute;
+        top: 5px;
+        left: 25px;
+        height: 30px;
+        width: 30px;
+        border: 2px solid black;
+        border-radius: 15px;
+        z-index: 1;
+      }
+
+      & .invisible-radio {
+        opacity: 0;
+        position: absolute;
+        top: 2px;
+        left: 20px;
+        height: 30px;
+        width: 30px;
+        z-index: 3;
+      }
+    }
+  }
+
   & .timeline-outer {
     grid-column: 1 / 3;
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     border: 1px solid orange;
   }
 }
