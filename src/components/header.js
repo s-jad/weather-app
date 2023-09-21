@@ -59,10 +59,11 @@ export default function Header() {
   header.appendChild(SearchBar());
   const { currentIcon, currentText } = currentConditionIcon();
 
-  const conditionIconContainer = document.createElement('div');
-  conditionIconContainer.className = 'condition-flex';
-  conditionIconContainer.appendChild(currentIcon);
-  conditionIconContainer.appendChild(currentText);
+  const conditionFlex = document.createElement('div');
+  conditionFlex.className = 'condition-flex';
+  conditionFlex.appendChild(currentIcon);
+  conditionFlex.appendChild(currentText);
+  header.appendChild(conditionFlex);
 
   header.addEventListener('currentConditionApiResponse', (ev) => {
     const { current } = ev.detail;
