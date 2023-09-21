@@ -1,3 +1,30 @@
+function getSunMoonIcon() {
+  const sunMoonIconOuter = document.createElement('div');
+  sunMoonIconOuter.className = 'sun-moon-icon-outer';
+
+  const sunMoonIconInner = document.createElement('div');
+  sunMoonIconInner.className = 'sun-moon-icon-inner';
+
+  const sunIconBg = document.createElement('div');
+  sunIconBg.className = 'sun-bg';
+
+  const moonIconBg = document.createElement('div');
+  moonIconBg.className = 'moon-bg';
+
+  const sunMoonIcon = new Image();
+  sunMoonIcon.className = 'sun-moon-icon';
+  sunMoonIcon.src = '../assets/imgs/sun-moon.svg';
+  sunMoonIcon.style.height = '120px';
+  sunMoonIcon.style.width = '120px';
+
+  sunMoonIconInner.appendChild(sunIconBg);
+  sunMoonIconInner.appendChild(moonIconBg);
+  sunMoonIconInner.appendChild(sunMoonIcon);
+  sunMoonIconOuter.appendChild(sunMoonIconInner);
+
+  return sunMoonIconOuter;
+}
+
 function getSun() {
   const sunrise = document.createElement('p');
   sunrise.className = 'sunrise';
@@ -56,9 +83,10 @@ export default function AstroCard() {
 
   const sunContainer = document.createElement('div');
   sunContainer.className = 'sun-container';
+  sunContainer.appendChild(sunlightHours);
   sunContainer.appendChild(sunrise);
   sunContainer.appendChild(sunset);
-  sunContainer.appendChild(sunlightHours);
+  sunContainer.appendChild(getSunMoonIcon());
 
   const moonContainer = document.createElement('div');
   moonContainer.className = 'moon-container';

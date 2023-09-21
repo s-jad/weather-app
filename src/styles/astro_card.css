@@ -17,11 +17,57 @@
       text-align: left;
     }
     
-    & .sun-moon-icon {
+    & .sun-moon-icon-outer {
       position: absolute;
+      height: 120px;
+      width: 120px;
       top: 50%;
+      left: 60%;
       transform: translateY(-50%);
-      right: -50px;
+
+      & .sun-moon-icon-inner {
+        position: relative;
+        inset: 0;
+      
+        & .sun-bg {
+          position: absolute;
+          left: 34px;
+          top: 20px;
+          width: 80px;
+          height: 80px;
+          background-color: transparent;
+          background-image: radial-gradient(circle 40px at 50% 100%,
+                                            #e56910 0%,
+                                            #f6b256 40%,
+                                            #f7f4b3 80%, 
+                                            transparent 94%); 
+          background-size: 100% 50%;
+          background-repeat: no-repeat;
+          transform: rotate(-90deg);
+        }
+        & .moon-bg {
+          position: absolute;
+          left: 34px;
+          top: 20px;
+          width: 80px;
+          height: 80px;
+          background-color: transparent;
+          background-image: radial-gradient(circle 40px at 50% 100%, 
+                                            #d4d4e0 0%, 
+                                            #d4e0e0 40%, 
+                                            #e0dad4 80%,
+                                            transparent 87%); 
+          background-size: 100% 50%;
+          background-repeat: no-repeat;
+          transform: rotate(90deg);
+        }
+
+        & .sun-moon-icon {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+        }
+      }
     }
   }
 
