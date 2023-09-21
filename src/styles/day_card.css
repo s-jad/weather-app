@@ -1,61 +1,55 @@
 .day-card {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr) 35px 35px;
-  padding-top: 1rem;
-  padding-left: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 35px;
+  padding: 1rem;
 
   & .temp-grid {
     grid-column: 1 / 2;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
 
     display: grid;
     grid-template-columns: 70px 1fr;
     grid-template-rows: repeat(3, 1fr);
-
+    align-items: center;
 
     & img.day-card-icon.thermometer-icon {
       grid-column: 1 / 2;
       grid-row: 1 / 4;
-      height: 70px;
-      width: 70px;
+      height: 50px;
+      width: 50px;
+    }
+
+    & .max-temp {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+    & .avg-temp {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+    & .min-temp {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
     }
   }
   
-  & .wind-flex {
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
-
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  & .vis-flex {
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
-  
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 
   & .humidity-grid {
     grid-column: 2 / 3;
-    grid-row: 1 / 3;
+    grid-row: 1 / 2;
 
     display: grid;
     grid-template-columns: 70px 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
 
-    & .rain-icon {
-      align-self: center;
+    & .rain-drop-icon {
       justify-self: center;
       grid-column: 1 / 2;
-      grid-row: 1 / 3;
+      grid-row: 1 / 4;
       height: 50px;
       width: 50px;
-      margin-right: 1rem;
     }
 
     & .precipitation {
@@ -67,17 +61,62 @@
       grid-column: 2 / 3;
       grid-row: 2 / 3;
     }
+
+    & .percent-rain {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+    }
   }
 
-  & .chance-flex {
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
+  & .wind-grid {
+    grid-column:  3 / 4;
+    grid-row: 1 / 2;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+
+    & .wind-icon {
+      justify-self: center;
+      grid-column: 1 / 2;
+      grid-row: 1 / 4;
+      height: 50px;
+      width: 50px;
+    }
+
+    & .max-wind {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    & .max-gust {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+
+    & .wind-direction {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+    }
+  }
+
+  & .lower-flex {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
 
     display: flex;
     align-items: center;
-    justify-content: start;
-    gap: 3rem;
+    justify-content: space-evenly;
+    gap: 1rem;
     
+ 
+
+    & .vis-flex {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     & .snow-percentage-flex {
       display: flex;
       gap: 1rem;

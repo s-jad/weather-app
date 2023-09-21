@@ -14,10 +14,6 @@ function getTempItems() {
 }
 
 function getDayCardIcons() {
-  const rainIcon = new Image();
-  rainIcon.src = '../assets/imgs/rain.png';
-  rainIcon.className = 'day-card-icon rain-icon';
-
   const thermometerIcon = new Image();
   thermometerIcon.src = '../assets/imgs/thermometer.png';
   thermometerIcon.className = 'day-card-icon thermometer-icon';
@@ -39,7 +35,6 @@ function getDayCardIcons() {
   rainDropIcon.className = 'day-card-icon rain-drop-icon';
 
   return {
-    rainIcon,
     thermometerIcon,
     windIcon,
     visIcon,
@@ -53,10 +48,28 @@ function getHumidityItems() {
   precipitation.className = 'day-card-text precipitation';
   const humidity = document.createElement('p');
   humidity.className = 'day-card-text humidity';
+  const percentageRain = document.createElement('p');
+  percentageRain.className = 'day-card-text percent-rain';
 
   return {
     precipitation,
     humidity,
+    percentageRain,
+  };
+}
+
+function getWindItems() {
+  const maxWind = document.createElement('p');
+  maxWind.className = 'day-card-text max-wind';
+  const maxGust = document.createElement('p');
+  maxGust.className = 'day-card-text max-gust';
+  const windDirection = document.createElement('p');
+  windDirection.className = 'day-card-text wind-direction';
+
+  return {
+    maxWind,
+    maxGust,
+    windDirection,
   };
 }
 
@@ -65,7 +78,6 @@ export default function DayCard() {
   dayCard.className = 'day-card';
 
   const {
-    rainIcon,
     thermometerIcon,
     windIcon,
     visIcon,
@@ -79,7 +91,17 @@ export default function DayCard() {
     avgTemp,
   } = getTempItems();
 
-  const { precipitation, humidity } = getHumidityItems();
+  const {
+    precipitation,
+    humidity,
+    percentageRain,
+  } = getHumidityItems();
+
+  const {
+    maxWind,
+    maxGust,
+    windDirection,
+  } = getWindItems();
 
   const tempGrid = document.createElement('div');
   tempGrid.className = 'temp-grid';
@@ -88,15 +110,26 @@ export default function DayCard() {
   tempGrid.appendChild(avgTemp);
   tempGrid.appendChild(minTemp);
 
+  const humidityGrid = document.createElement('div');
+  humidityGrid.className = 'humidity-grid';
+  humidityGrid.appendChild(rainDropIcon);
+  humidityGrid.appendChild(percentageRain);
+  humidityGrid.appendChild(precipitation);
+  humidityGrid.appendChild(humidity);
+
+  const windGrid = document.createElement('div');
+  windGrid.className = 'wind-grid';
+  windGrid.appendChild(windIcon);
+  windGrid.appendChild(maxWind);
+  windGrid.appendChild(maxGust);
+  windGrid.appendChild(windDirection);
+
   const uv = document.createElement('p');
   uv.className = 'day-card-text uv-light';
-
-  const windFlex = document.createElement('div');
-  windFlex.className = 'wind-flex';
-  const maxWind = document.createElement('p');
-  maxWind.className = 'day-card-text max-wind';
-  windFlex.appendChild(windIcon);
-  windFlex.appendChild(maxWind);
+  uv.innerText = 'UV:';
+  const pressure = document.createElement('p');
+  pressure.className = 'day-card-text pressure';
+  pressure.innerText = 'Pressure:';
 
   const visFlex = document.createElement('div');
   visFlex.className = 'vis-flex';
@@ -105,49 +138,43 @@ export default function DayCard() {
   visFlex.appendChild(visIcon);
   visFlex.appendChild(visibility);
 
-  const humidityGrid = document.createElement('div');
-  humidityGrid.className = 'humidity-grid';
-  humidityGrid.appendChild(rainIcon);
-  humidityGrid.appendChild(precipitation);
-  humidityGrid.appendChild(humidity);
-
-  const chanceFlex = document.createElement('div');
-  chanceFlex.className = 'chance-flex';
+  const lowerFlex = document.createElement('div');
+  lowerFlex.className = 'lower-flex';
   const snowContainer = document.createElement('div');
   snowContainer.className = 'snow-percentage-flex';
-  const rainContainer = document.createElement('div');
-  rainContainer.className = 'rain-percentage-flex';
   const percentageSnow = document.createElement('p');
   percentageSnow.className = 'day-card-text percent-snow';
-  const percentageRain = document.createElement('p');
-  percentageRain.className = 'day-card-text percent-rain';
+
   snowContainer.appendChild(snowIcon);
   snowContainer.appendChild(percentageSnow);
-  rainContainer.appendChild(rainDropIcon);
-  rainContainer.appendChild(percentageRain);
-  chanceFlex.appendChild(rainContainer);
-  chanceFlex.appendChild(snowContainer);
+
+  lowerFlex.appendChild(snowContainer);
+  lowerFlex.appendChild(visFlex);
+  lowerFlex.appendChild(uv);
+  lowerFlex.appendChild(pressure);
 
   dayCard.appendChild(tempGrid);
-  dayCard.appendChild(uv);
-  dayCard.appendChild(windFlex);
-  dayCard.appendChild(visFlex);
   dayCard.appendChild(humidityGrid);
-  dayCard.appendChild(chanceFlex);
+  dayCard.appendChild(windGrid);
+  dayCard.appendChild(lowerFlex);
 
   dayCard.addEventListener('dayCardResponse', (ev) => {
     const { day } = ev.detail.forecastDay;
+    const { current } = ev.detail;
 
     maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
     minTemp.innerText = `Min: ${day.mintemp_c}c`;
     avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
-    visibility.innerText = `${day.avgvis_km}km`;
-    precipitation.innerText = `Total: ${day.totalprecip_mm}mm`;
-    humidity.innerText = `Humidity: ${day.avghumidity}`;
+    maxGust.innerText = `${current.gust_kph}kph`;
+    windDirection.innerText = `${current.wind_dir}`;
+    precipitation.innerText = `Tot: ${day.totalprecip_mm}mm`;
+    humidity.innerText = `Hum: ${day.avghumidity}%`;
+    percentageRain.innerText = `Chance: ${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
+    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `UV: ${day.uv}`;
+    pressure.innerText = `Pressure: ${current.pressure_mb}mb`;
   });
 
   return dayCard;
