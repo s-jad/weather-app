@@ -108,7 +108,7 @@
     align-items: center;
     justify-content: space-evenly;
     gap: 1rem;
-    border-top: 2px solid orange;
+    border-top: 2px solid red;
     padding-top: 1rem;
 
     & .vis-flex {
@@ -131,13 +131,14 @@
       display: flex;
       gap: 1rem;
     }
+
+    & img.day-card-icon {
+      height: 30px;
+      width: 30px;
+    }
   }
 
 
-  & img.day-card-icon {
-    height: 30px;
-    width: 30px;
-  }
 
 }
 
