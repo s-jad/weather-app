@@ -11,21 +11,21 @@ function handleTimelineSwitchBtns(ev) {
     timelineOuter.removeChild(timelineOuter.firstChild);
   }
 
-  switch (btn) {
-    case btn.id === 'radio-condition':
-      state.currentTimeline = 0;
+  switch (btn.id) {
+    case 'radio-condition':
+      timelineOuter.appendChild(state.timelines[0]);
       break;
 
-    case btn.id === 'radio-temp':
-      state.currentTimeline = 1;
+    case 'radio-temp':
+      timelineOuter.appendChild(state.timelines[1]);
       break;
 
-    case btn.id === 'radio-precipitation':
-      state.currentTimeline = 2;
+    case 'radio-precipitation':
+      timelineOuter.appendChild(state.timelines[2]);
       break;
 
-    case btn.id === 'radio-wind':
-      state.currentTimeline = 3;
+    case 'radio-wind':
+      timelineOuter.appendChild(state.timelines[3]);
       break;
     default:
       break;
