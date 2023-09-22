@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: nowrap;
 
-  & .timeline-condition {
+  & .timeline-inner {
     display: flex;
     flex-wrap: nowrap;
   

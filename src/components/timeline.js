@@ -115,7 +115,7 @@ function generateTimelineDays(day) {
 
 function getTimelineInner() {
   const timelineInner = document.createElement('div');
-  timelineInner.className = 'timeline-condition';
+  timelineInner.className = 'timeline-inner';
 
   for (let i = 0; i < 3; i += 1) {
     const day = generateTimelineDays(i);
