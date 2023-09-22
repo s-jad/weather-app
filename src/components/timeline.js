@@ -1,4 +1,68 @@
-import { data } from './api_interface';
+const state = {
+  currentTimeline: 0,
+};
+
+function getConditions(hour) {
+  const infoContainer = document.createElement('div');
+  infoContainer.className = 'timeline-hour-info-container';
+  const hourlyConditionIcon = new Image();
+  hourlyConditionIcon.className = `hourly-condition-icon hci-${hour}`;
+  const hourlyConditionText = document.createElement('p');
+  hourlyConditionText.className = `hourly-condition-text hct-${hour}`;
+
+  infoContainer.appendChild(hourlyConditionIcon);
+  infoContainer.appendChild(hourlyConditionText);
+
+  return infoContainer;
+}
+
+function getTemps(hour) {
+  const infoContainer = document.createElement('div');
+  infoContainer.className = 'timeline-hour-info-container';
+  const hourlyMaxTemp = document.createElement('p');
+  hourlyMaxTemp.className = `hourly-max-temp h-maxt-${hour}`;
+  const hourlyAvgTemp = document.createElement('p');
+  hourlyAvgTemp.className = `hourly-avg-temp h-avgt-${hour}`;
+  const hourlyMinTemp = document.createElement('p');
+  hourlyMinTemp.className = `hourly-min-temp h-mint-${hour}`;
+  infoContainer.appendChild(hourlyMaxTemp);
+  infoContainer.appendChild(hourlyAvgTemp);
+  infoContainer.appendChild(hourlyMinTemp);
+
+  return infoContainer;
+}
+
+function getWind(hour) {
+  const infoContainer = document.createElement('div');
+  infoContainer.className = 'timeline-hour-info-container';
+  const hourlyWindKph = document.createElement('p');
+  hourlyWindKph.className = `hourly-wind-kph h-wind-${hour}`;
+  const hourlyGustKph = document.createElement('p');
+  hourlyGustKph.className = `hourly-gust-kph h-gust-${hour}`;
+  const hourlyWindDirection = document.createElement('p');
+  hourlyWindDirection.className = `hourly-wind-dir h-wind-dir-${hour}`;
+  infoContainer.appendChild(hourlyWindKph);
+  infoContainer.appendChild(hourlyGustKph);
+  infoContainer.appendChild(hourlyWindDirection);
+
+  return infoContainer;
+}
+
+function getPrecipitation(hour) {
+  const infoContainer = document.createElement('div');
+  infoContainer.className = 'timeline-hour-info-container';
+  const hourlyRainChance = document.createElement('p');
+  hourlyRainChance.className = `hourly-rain-chance h-rain-${hour}`;
+  const hourlyCloudCover = document.createElement('p');
+  hourlyCloudCover.className = `hourly-cloud-cover h-cloud-${hour}`;
+  const hourlyHumidity = document.createElement('p');
+  hourlyHumidity.className = `hourly-humidity h-humidity-${hour}`;
+  infoContainer.appendChild(hourlyRainChance);
+  infoContainer.appendChild(hourlyCloudCover);
+  infoContainer.appendChild(hourlyHumidity);
+
+  return infoContainer;
+}
 
 function generateTimelineHours(hour) {
   const timelineHour = document.createElement('div');
@@ -12,19 +76,27 @@ function generateTimelineHours(hour) {
     time.innerText = `0${hour}:00`;
   }
 
-  const infoContainer = document.createElement('div');
-  infoContainer.className = 'timeline-hour-info-container';
+  let info;
 
-  const hourlyConditionIcon = new Image();
-  hourlyConditionIcon.className = `hourly-condition-icon hci-${hour}`;
-  const hourlyConditionText = document.createElement('p');
-  hourlyConditionText.className = `hourly-condition-text hct-${hour}`;
-
-  infoContainer.appendChild(hourlyConditionIcon);
-  infoContainer.appendChild(hourlyConditionText);
+  switch (state.currentTimeline) {
+    case 0:
+      info = getConditions(hour);
+      break;
+    case 1:
+      info = getTemps(hour);
+      break;
+    case 2:
+      info = getPrecipitation(hour);
+      break;
+    case 3:
+      info = getWind(hour);
+      break;
+    default:
+      break;
+  }
 
   timelineHour.appendChild(time);
-  timelineHour.appendChild(infoContainer);
+  timelineHour.appendChild(info);
 
   return timelineHour;
 }
@@ -41,26 +113,41 @@ function generateTimelineDays(day) {
   return timelineDay;
 }
 
-export default function Timeline() {
-  const timelineOuter = document.createElement('div');
-  timelineOuter.className = 'timeline-outer';
+function getTimelineInner() {
+  const timelineInner = document.createElement('div');
+  timelineInner.className = 'timeline-condition';
 
   for (let i = 0; i < 3; i += 1) {
     const day = generateTimelineDays(i);
-    timelineOuter.appendChild(day);
+    timelineInner.appendChild(day);
   }
+
+  return timelineInner;
+}
+
+function Timeline() {
+  const timelineOuter = document.createElement('div');
+  timelineOuter.className = 'timeline-outer';
+  timelineOuter.appendChild(getTimelineInner());
 
   timelineOuter.addEventListener('timelineApiResponse', (ev) => {
     const { forecast } = ev.detail;
 
-    for (let i = 0; i < 24; i += 1) {
-      const hci = document.body.querySelector(`.hci-${i}`);
-      const hct = document.body.querySelector(`.hct-${i}`);
+    for (let i = 0; i < 3; i += 1) {
+      for (let j = 0; j < 24; j += 1) {
+        const hci = document.body.querySelector(`.day-${i + 1} .hci-${j}`);
+        const hct = document.body.querySelector(`.day-${i + 1} .hct-${j}`);
 
-      hci.src = `https:${forecast.forecastday[0].hour[i].condition.icon}`;
-      hct.innerText = forecast.forecastday[0].hour[i].condition.text;
+        hci.src = `https:${forecast.forecastday[i].hour[j].condition.icon}`;
+        hct.innerText = forecast.forecastday[i].hour[j].condition.text;
+      }
     }
   });
 
   return timelineOuter;
 }
+
+export {
+  state,
+  Timeline,
+};
