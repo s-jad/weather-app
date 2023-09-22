@@ -187,9 +187,9 @@ export default function DayCard() {
     maxWind.innerText = `${day.maxwind_kph}kph`;
     maxGust.innerText = `${current.gust_kph}kph`;
     windDirection.innerText = `${current.wind_dir}`;
-    precipitation.innerText = `Tot: ${day.totalprecip_mm}mm`;
+    precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
-    percentageRain.innerText = `Chance: ${day.daily_chance_of_rain}%`;
+    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
     visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
