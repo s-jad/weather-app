@@ -55,12 +55,29 @@ function getMoon() {
   };
 }
 
-function calculateSunlightHours(sunrise, sunset) {
-  let sunSetNum = parseInt(sunset.replace(/\D/g, ''), 10);
-  sunSetNum += 1200;
-  const sunSetStr = String(sunSetNum);
-  const formattedSunSetTime = `${sunSetStr.slice(0, 2)}:${sunSetStr.slice(2)}`;
+function convertToMilitaryTime(time) {
+  if (time === 'No moonset') {
+    return 'None';
+  }
+  let timeNum = parseInt(time.replace(/\D/g, ''), 10);
+  let formattedTime = '';
+  if (time.includes('PM')) {
+    timeNum += 1200;
+    const timeStr = String(timeNum);
+    formattedTime = `${timeStr.slice(0, 2)}:${timeStr.slice(2)}`;
+  } else if (timeNum >= 1000) {
+    const timeStr = String(timeNum);
+    formattedTime = `${timeStr.slice(0, 1)}:${timeStr.slice(1)}`;
+  } else {
+    const timeStr = String(timeNum);
+    formattedTime = `0${timeStr.slice(0, 1)}:${timeStr.slice(1)}`;
+  }
 
+  return formattedTime;
+}
+
+function calculateSunlightHours(sunrise, sunset) {
+  const formattedSunSetTime = convertToMilitaryTime(sunset);
   const sunRiseTime = sunrise.split(' ')[0];
   const sunSetDate = new Date(`2000-01-01T${formattedSunSetTime}:00`);
   const sunRiseDate = new Date(`2000-01-01T${sunRiseTime}:00`);
@@ -100,12 +117,12 @@ export default function AstroCard() {
   astroCard.addEventListener('astroApiResponse', (ev) => {
     const { astro } = ev.detail;
 
-    sunrise.innerText = `Sunrise: ${astro.sunrise}`;
-    sunset.innerText = `Sunset: ${astro.sunset}`;
+    sunrise.innerText = `Sunrise: ${convertToMilitaryTime(astro.sunrise)}`;
+    sunset.innerText = `Sunset: ${convertToMilitaryTime(astro.sunset)}`;
     sunlightHours.innerText = calculateSunlightHours(astro.sunrise, astro.sunset);
 
-    moonrise.innerText = `Moonrise: ${astro.moonrise}`;
-    moonset.innerText = `Moonset: ${astro.moonset}`;
+    moonrise.innerText = `Moonrise: ${convertToMilitaryTime(astro.moonrise)}`;
+    moonset.innerText = `Moonset: ${convertToMilitaryTime(astro.moonset)}`;
     moonPhase.innerText = `Phase: ${astro.moon_phase}`;
   });
 
