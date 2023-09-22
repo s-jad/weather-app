@@ -33,16 +33,29 @@ function handleAstroEventDispatch(astro) {
   astroCard.dispatchEvent(astroResponseEvent);
 }
 
-function handleDayCardEventDispatch(forecastDay) {
+function handleDayCardEventDispatch(forecastDay, current) {
   const dayCard = document.body.querySelector('.day-card');
 
   const dayCardResponseEvent = new CustomEvent('dayCardResponse', {
     detail: {
       forecastDay,
+      current,
     },
   });
 
   dayCard.dispatchEvent(dayCardResponseEvent);
+}
+
+function handleTimelineEventDispatch(forecast) {
+  const timeLine = document.body.querySelector('.timeline-outer');
+
+  const timelineResponseEvent = new CustomEvent('timelineApiResponse', {
+    detail: {
+      forecast,
+    },
+  });
+
+  timeLine.dispatchEvent(timelineResponseEvent);
 }
 
 async function getCityWeatherData(city) {
@@ -56,7 +69,8 @@ async function getCityWeatherData(city) {
     data.forecast = forecast;
 
     handleAstroEventDispatch(forecast.forecastday[0].astro);
-    handleDayCardEventDispatch(forecast.forecastday[0]);
+    handleDayCardEventDispatch(forecast.forecastday[0], current);
+    handleTimelineEventDispatch(data.forecast);
   } catch (error) {
     console.log(error);
   }
