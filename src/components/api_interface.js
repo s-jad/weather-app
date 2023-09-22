@@ -1,3 +1,5 @@
+import { state } from './timeline';
+
 const data = {
   forecast: {},
 };
@@ -58,6 +60,17 @@ function handleTimelineEventDispatch(forecast) {
   timeLine.dispatchEvent(timelineResponseEvent);
 }
 
+function handleShadowTimelineEventDispatch(forecast) {
+  const timeLines = state.timelines;
+  const timelineResponseEvent = new CustomEvent('loadShadowTimelines', {
+    detail: {
+      forecast,
+    },
+  });
+
+  timeLines.forEach((timeline) => timeline.dispatchEvent(timelineResponseEvent));
+}
+
 async function getCityWeatherData(city) {
   try {
     const request = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=e1e38ce47b19465289d103419231909&q=${city}&days=3&aqi=no&alerts=no`, { mode: 'cors' });
@@ -71,6 +84,7 @@ async function getCityWeatherData(city) {
     handleAstroEventDispatch(forecast.forecastday[0].astro);
     handleDayCardEventDispatch(forecast.forecastday[0], current);
     handleTimelineEventDispatch(data.forecast);
+    handleShadowTimelineEventDispatch(data.forecast);
   } catch (error) {
     console.log(error);
   }
