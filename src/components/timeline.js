@@ -1,5 +1,6 @@
 const state = {
   currentTimeline: 0,
+  timelines: [],
 };
 
 function getConditions(hour) {
@@ -128,7 +129,8 @@ function getTimelineInner() {
 function Timeline() {
   const timelineOuter = document.createElement('div');
   timelineOuter.className = 'timeline-outer';
-  timelineOuter.appendChild(getTimelineInner());
+  const timelineInner = getTimelineInner();
+  timelineOuter.appendChild(timelineInner);
 
   timelineOuter.addEventListener('timelineApiResponse', (ev) => {
     const { forecast } = ev.detail;
@@ -143,6 +145,13 @@ function Timeline() {
       }
     }
   });
+
+  state.timelines[0] = timelineInner;
+
+  for (let i = 1; i < 4; i += 1) {
+    state.currentTimeline = i;
+    state.timelines[i] = getTimelineInner();
+  }
 
   return timelineOuter;
 }
