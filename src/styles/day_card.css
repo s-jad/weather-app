@@ -1,23 +1,25 @@
 .day-card {
+  --large-icon-size: clamp(30px, calc(3rem + 1vw), 50px);
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 35px;
-  padding: 1rem;
+  padding-block: calc(0.2rem + 0.4vw);
 
   & .temp-grid {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 
     display: grid;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
 
     & img.day-card-icon.thermometer-icon {
       grid-column: 1 / 2;
       grid-row: 1 / 4;
-      height: 50px;
-      width: 50px;
+      height: var(--large-icon-size);
+      width: var(--large-icon-size);
     }
 
     & .max-temp {
@@ -40,48 +42,51 @@
     grid-row: 1 / 2;
 
     display: grid;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
+    column-gap: 0.5vw;
 
     & .rain-drop-icon {
       justify-self: center;
       grid-column: 1 / 2;
       grid-row: 1 / 4;
-      height: 50px;
-      width: 50px;
-    }
-
-    & .precipitation {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-    }
-
-    & .humidity {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
+      height: var(--large-icon-size);
+      width: var(--large-icon-size);
     }
 
     & .percent-rain {
       grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    & .precipitation {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+
+    & .humidity {
+      grid-column: 2 / 3;
       grid-row: 3 / 4;
     }
+
   }
 
   & .wind-grid {
     grid-column:  3 / 4;
     grid-row: 1 / 2;
     display: grid;
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 50px 1fr;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
+    column-gap: 1vw;
 
     & .wind-icon {
       justify-self: center;
       grid-column: 1 / 2;
       grid-row: 1 / 4;
-      height: 50px;
-      width: 50px;
+      height: var(--large-icon-size);
+      width: var(--large-icon-size);
     }
 
     & .max-wind {
@@ -106,9 +111,9 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding-inline: 1rem;
     gap: 1rem;
-    border-top: 2px solid red;
     padding-top: 1rem;
 
     & .vis-flex {
@@ -133,8 +138,8 @@
     }
 
     & img.day-card-icon {
-      height: 30px;
-      width: 30px;
+      height: 26px;
+      width: 26px;
     }
   }
 
