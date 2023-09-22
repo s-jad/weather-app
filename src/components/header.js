@@ -56,13 +56,14 @@ export default function Header() {
     header.appendChild(cityData[key]);
   });
 
-  header.appendChild(SearchBar());
   const { currentIcon, currentText } = currentConditionIcon();
 
   const conditionFlex = document.createElement('div');
   conditionFlex.className = 'condition-flex';
   conditionFlex.appendChild(currentIcon);
   conditionFlex.appendChild(currentText);
+
+  header.appendChild(SearchBar());
   header.appendChild(conditionFlex);
 
   header.addEventListener('currentConditionApiResponse', (ev) => {
