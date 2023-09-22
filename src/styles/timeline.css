@@ -1,0 +1,41 @@
+.timeline-outer {
+  overflow-x: scroll;
+  display: flex;
+  flex-wrap: nowrap;
+
+  & .timeline-condition {
+    display: flex;
+    flex-wrap: nowrap;
+  
+    & .timeline-day {
+      border: 1px solid pink;
+      height: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+
+      & .timeline-hour {
+        border: 1px solid yellow;
+        width: 100px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 2rem;
+
+        & .timeline-hour-time {
+          text-align: center;
+        }
+
+        & .timeline-hour-info-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding-block: 0.5rem;
+        }
+      }
+    }
+  }
+}
