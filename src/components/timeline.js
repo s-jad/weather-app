@@ -128,7 +128,7 @@ function getTimelineInner() {
 
 function handleShadowTimelineLoading(forecast, index) {
   let days = [];
-  console.log(state.timelines);
+
   switch (index) {
     case 0:
       days = Array
@@ -157,9 +157,9 @@ function handleShadowTimelineLoading(forecast, index) {
           const feelsLike = hour.querySelector('.hourly-feels-like');
           const windChill = hour.querySelector('.hourly-wind-chill');
 
-          temp.innerText = `Temp: ${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}`;
-          feelsLike.innerText = `Feels like: ${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}`;
-          windChill.innerText = `Wind chill: ${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}`;
+          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}c`;
+          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}c`;
+          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}c`;
         });
       });
       break;
@@ -175,9 +175,9 @@ function handleShadowTimelineLoading(forecast, index) {
           const cloudCover = hour.querySelector('.hourly-cloud-cover');
           const humidity = hour.querySelector('.hourly-humidity');
 
-          rainChance.innerText = `Chance: ${forecast.forecastday[dayIndex].hour[hourIndex].chance_of_rain}%`;
-          cloudCover.innerText = `Cloud: ${forecast.forecastday[dayIndex].hour[hourIndex].cloud}%`;
-          humidity.innerText = `Hum: ${forecast.forecastday[dayIndex].hour[hourIndex].humidity}%`;
+          rainChance.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].chance_of_rain}%`;
+          cloudCover.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].cloud}%`;
+          humidity.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].humidity}%`;
         });
       });
       break;
@@ -193,8 +193,8 @@ function handleShadowTimelineLoading(forecast, index) {
           const gustKph = hour.querySelector('.hourly-gust-kph');
           const windDirection = hour.querySelector('.hourly-wind-dir');
 
-          windKph.innerText = `Wind: ${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
-          gustKph.innerText = `Gust: ${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
+          windKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
+          gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
           windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
         });
       });
@@ -205,11 +205,25 @@ function handleShadowTimelineLoading(forecast, index) {
   }
 }
 
+function getTimelineSidebar() {
+  const timelineSidebar = document.createElement('div');
+  timelineSidebar.className = 'timeline-sidebar';
+
+  for (let i = 0; i < 3; i += 1) {
+    const info = document.createElement('p');
+    info.className = 'sidebar-info';
+    timelineSidebar.appendChild(info);
+  }
+
+  return timelineSidebar;
+}
+
 function Timeline() {
   const timelineOuter = document.createElement('div');
   timelineOuter.className = 'timeline-outer';
-  const timelineInner = getTimelineInner();
-  timelineOuter.appendChild(timelineInner);
+
+  timelineOuter.appendChild(getTimelineSidebar());
+  timelineOuter.appendChild(getTimelineInner());
 
   timelineOuter.addEventListener('timelineApiResponse', (ev) => {
     const { forecast } = ev.detail;
