@@ -1,20 +1,42 @@
 .timeline-outer {
+  position: relative;
   overflow-x: scroll;
   display: flex;
   flex-wrap: nowrap;
+  height: 100%;
+  
+  & .timeline-sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 1.65rem;
+    padding-top: 6rem;
+    padding-inline: 0.5rem;
+
+    min-width: 160px;
+    height: 100%;
+    background-image: linear-gradient(90deg, hsl(240, 50%, 20%) 65%, hsla(240, 50%, 20%, 0.7) 80%, hsla(240, 50%, 20%, 0.0));
+    color: white;
+
+    font-size: var(--fsz-16);
+  }
 
   & .timeline-inner {
     display: flex;
     flex-wrap: nowrap;
   
     & .timeline-day {
-      border: 1px solid pink;
+      border-inline: 3px solid hsla(240, 50%, 20%, 0.7);
       height: 100%;
       display: flex;
       flex-wrap: nowrap;
 
       & .timeline-hour {
-        border: 1px solid yellow;
+        border: 1px solid hsla(240, 50%, 20%, 0.7);
         width: 100px;
         height: 100%;
         display: flex;
@@ -25,6 +47,11 @@
 
         & .timeline-hour-time {
           text-align: center;
+          background: hsla(240, 50%, 50%, 0.3);
+          width: 100%;
+          font-size: var(--fsz-16);
+          font-weight: 700;
+          padding: 0.5rem;
         }
 
         & .timeline-hour-info-container {
@@ -32,8 +59,8 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
-          padding-block: 0.5rem;
+          gap: 2rem;
+          padding-block: 1rem;
         }
       }
     }
