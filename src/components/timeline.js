@@ -20,15 +20,15 @@ function getConditions(hour) {
 function getTemps(hour) {
   const infoContainer = document.createElement('div');
   infoContainer.className = 'timeline-hour-info-container';
-  const hourlyMaxTemp = document.createElement('p');
-  hourlyMaxTemp.className = `hourly-max-temp h-maxt-${hour}`;
-  const hourlyAvgTemp = document.createElement('p');
-  hourlyAvgTemp.className = `hourly-avg-temp h-avgt-${hour}`;
-  const hourlyMinTemp = document.createElement('p');
-  hourlyMinTemp.className = `hourly-min-temp h-mint-${hour}`;
-  infoContainer.appendChild(hourlyMaxTemp);
-  infoContainer.appendChild(hourlyAvgTemp);
-  infoContainer.appendChild(hourlyMinTemp);
+  const hourlyTemp = document.createElement('p');
+  hourlyTemp.className = `hourly-temp h-temp-${hour}`;
+  const hourlyFeelsLike = document.createElement('p');
+  hourlyFeelsLike.className = `hourly-feels-like h-fl-${hour}`;
+  const hourlyWindChill = document.createElement('p');
+  hourlyWindChill.className = `hourly-wind-chill h-wc-${hour}`;
+  infoContainer.appendChild(hourlyTemp);
+  infoContainer.appendChild(hourlyFeelsLike);
+  infoContainer.appendChild(hourlyWindChill);
 
   return infoContainer;
 }
@@ -126,6 +126,85 @@ function getTimelineInner() {
   return timelineInner;
 }
 
+function handleShadowTimelineLoading(forecast, index) {
+  let days = [];
+  console.log(state.timelines);
+  switch (index) {
+    case 0:
+      days = Array
+        .from(state.timelines[0].childNodes)
+        .filter((node) => node.nodeType === Node.ELEMENT_NODE);
+
+      days.forEach((day, dayIndex) => {
+        const hours = Array.from(day.querySelectorAll('.timeline-hour'));
+        hours.forEach((hour, hourIndex) => {
+          const hci = hour.querySelector('.hourly-condition-icon');
+          const hct = hour.querySelector('.hourly-condition-text');
+          hci.src = `https:${forecast.forecastday[dayIndex].hour[hourIndex].condition.icon}`;
+          hct.innerText = forecast.forecastday[dayIndex].hour[hourIndex].condition.text;
+        });
+      });
+      break;
+    case 1:
+      days = Array
+        .from(state.timelines[1].childNodes)
+        .filter((node) => node.nodeType === Node.ELEMENT_NODE);
+
+      days.forEach((day, dayIndex) => {
+        const hours = Array.from(day.querySelectorAll('.timeline-hour'));
+        hours.forEach((hour, hourIndex) => {
+          const temp = hour.querySelector('.hourly-temp');
+          const feelsLike = hour.querySelector('.hourly-feels-like');
+          const windChill = hour.querySelector('.hourly-wind-chill');
+
+          temp.innerText = `Temp: ${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}`;
+          feelsLike.innerText = `Feels like: ${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}`;
+          windChill.innerText = `Wind chill: ${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}`;
+        });
+      });
+      break;
+    case 2:
+      days = Array
+        .from(state.timelines[2].childNodes)
+        .filter((node) => node.nodeType === Node.ELEMENT_NODE);
+
+      days.forEach((day, dayIndex) => {
+        const hours = Array.from(day.querySelectorAll('.timeline-hour'));
+        hours.forEach((hour, hourIndex) => {
+          const rainChance = hour.querySelector('.hourly-rain-chance');
+          const cloudCover = hour.querySelector('.hourly-cloud-cover');
+          const humidity = hour.querySelector('.hourly-humidity');
+
+          rainChance.innerText = `Chance: ${forecast.forecastday[dayIndex].hour[hourIndex].chance_of_rain}%`;
+          cloudCover.innerText = `Cloud: ${forecast.forecastday[dayIndex].hour[hourIndex].cloud}%`;
+          humidity.innerText = `Hum: ${forecast.forecastday[dayIndex].hour[hourIndex].humidity}%`;
+        });
+      });
+      break;
+    case 3:
+      days = Array
+        .from(state.timelines[3].childNodes)
+        .filter((node) => node.nodeType === Node.ELEMENT_NODE);
+
+      days.forEach((day, dayIndex) => {
+        const hours = Array.from(day.querySelectorAll('.timeline-hour'));
+        hours.forEach((hour, hourIndex) => {
+          const windKph = hour.querySelector('.hourly-wind-kph');
+          const gustKph = hour.querySelector('.hourly-gust-kph');
+          const windDirection = hour.querySelector('.hourly-wind-dir');
+
+          windKph.innerText = `Wind: ${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
+          gustKph.innerText = `Gust: ${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
+          windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
+        });
+      });
+      break;
+
+    default:
+      break;
+  }
+}
+
 function Timeline() {
   const timelineOuter = document.createElement('div');
   timelineOuter.className = 'timeline-outer';
@@ -146,11 +225,13 @@ function Timeline() {
     }
   });
 
-  state.timelines[0] = timelineInner;
-
-  for (let i = 1; i < 4; i += 1) {
+  for (let i = 0; i < 4; i += 1) {
     state.currentTimeline = i;
     state.timelines[i] = getTimelineInner();
+    state.timelines[i].addEventListener('loadShadowTimelines', (ev) => {
+      const { forecast } = ev.detail;
+      handleShadowTimelineLoading(forecast, i);
+    });
   }
 
   return timelineOuter;
