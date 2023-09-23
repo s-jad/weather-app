@@ -1,6 +1,7 @@
 const state = {
   currentTimeline: 0,
   timelines: [],
+  currentForecast: {},
 };
 
 function getConditions(hour) {
@@ -218,12 +219,102 @@ function getTimelineSidebar() {
   return timelineSidebar;
 }
 
+function generateTimeLineObservers(timeline) {
+  const dayTwoMidnight = timeline.querySelector('.day-2 .hour-0');
+  const dayThreeMidnight = timeline.querySelector('.day-3 .hour-0');
+  const astroCard = document.body.querySelector('.astro-card');
+  const dayCard = document.body.querySelector('.day-card');
+
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0,
+  };
+
+  const observerDayTwo = new IntersectionObserver((entries) => {
+    if (state.currentForecast.forecastday === undefined) {
+      return;
+    }
+
+    entries.forEach((entry) => {
+      if (entry.rootBounds.width === 0) {
+        return;
+      }
+
+      if (entry.isIntersecting
+        && entry.boundingClientRect.x < entry.rootBounds.width / 2
+      ) {
+        const event = new CustomEvent('dayTwoRight', {
+          detail: {
+            day: state.currentForecast.forecastday[0].day,
+            astro: state.currentForecast.forecastday[0].astro,
+          },
+        });
+
+        astroCard.dispatchEvent(event);
+        dayCard.dispatchEvent(event);
+      } else if (entry.isIntersecting
+        && entry.boundingClientRect.x > entry.rootBounds.width / 2
+      ) {
+        const event = new CustomEvent('dayTwoVisible', {
+          detail: {
+            day: state.currentForecast.forecastday[1].day,
+            astro: state.currentForecast.forecastday[1].astro,
+          },
+        });
+
+        astroCard.dispatchEvent(event);
+        dayCard.dispatchEvent(event);
+      }
+    });
+  }, options);
+
+  const observerDayThree = new IntersectionObserver((entries) => {
+    if (state.currentForecast.forecastday === undefined) {
+      return;
+    }
+
+    entries.forEach((entry) => {
+      if (entry.rootBounds.width === 0) {
+        return;
+      }
+
+      if (entry.isIntersecting
+        && entry.boundingClientRect.x < entry.rootBounds.width / 2
+      ) {
+        const event = new CustomEvent('dayThreeRight', {
+          detail: {
+            day: state.currentForecast.forecastday[1].day,
+            astro: state.currentForecast.forecastday[1].astro,
+          },
+        });
+
+        astroCard.dispatchEvent(event);
+        dayCard.dispatchEvent(event);
+      } else if (entry.isIntersecting
+        && entry.boundingClientRect.x > entry.rootBounds.width / 2
+      ) {
+        const event = new CustomEvent('dayThreeVisible', {
+          detail: {
+            day: state.currentForecast.forecastday[2].day,
+            astro: state.currentForecast.forecastday[2].astro,
+          },
+        });
+
+        astroCard.dispatchEvent(event);
+        dayCard.dispatchEvent(event);
+      }
+    });
+  }, options);
+
+  observerDayTwo.observe(dayTwoMidnight);
+  observerDayThree.observe(dayThreeMidnight);
+}
+
 function Timeline() {
   const timelineOuter = document.createElement('div');
   timelineOuter.className = 'timeline-outer';
-
   timelineOuter.appendChild(getTimelineSidebar());
-  timelineOuter.appendChild(getTimelineInner());
 
   timelineOuter.addEventListener('timelineApiResponse', (ev) => {
     const { forecast } = ev.detail;
@@ -237,6 +328,8 @@ function Timeline() {
         hct.innerText = forecast.forecastday[i].hour[j].condition.text;
       }
     }
+
+    state.currentForecast = forecast;
   });
 
   for (let i = 0; i < 4; i += 1) {
@@ -245,8 +338,13 @@ function Timeline() {
     state.timelines[i].addEventListener('loadShadowTimelines', (ev) => {
       const { forecast } = ev.detail;
       handleShadowTimelineLoading(forecast, i);
+      generateTimeLineObservers(state.timelines[i]);
     });
   }
+
+  timelineOuter.appendChild(state.timelines[0]);
+  window.addEventListener('DOMContentLoaded', () => {
+  });
 
   return timelineOuter;
 }
