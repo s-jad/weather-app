@@ -13,8 +13,8 @@
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    gap: 1.65rem;
-    padding-top: 6rem;
+    gap: 1.63rem;
+    padding-top: calc(6.2rem + 0.45vw);
     padding-inline: 0.5rem;
 
     min-width: 160px;
