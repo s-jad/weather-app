@@ -213,5 +213,59 @@ export default function DayCard() {
     pressure.innerText = `${current.pressure_mb}mb`;
   });
 
+  dayCard.addEventListener('dayTwoVisible', (ev) => {
+    const { day } = ev.detail;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxWind.innerText = `${day.maxwind_kph}kph`;
+    precipitation.innerText = `${day.totalprecip_mm}mm`;
+    humidity.innerText = `Hum: ${day.avghumidity}%`;
+    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
+    percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
+    visibility.innerText = `${day.avgvis_km}km`;
+    uv.innerText = `${day.uv}`;
+  });
+
+  dayCard.addEventListener('dayTwoRight', (ev) => {
+    const { day } = ev.detail;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxWind.innerText = `${day.maxwind_kph}kph`;
+    precipitation.innerText = `${day.totalprecip_mm}mm`;
+    humidity.innerText = `Hum: ${day.avghumidity}%`;
+    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
+    percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
+    visibility.innerText = `${day.avgvis_km}km`;
+    uv.innerText = `${day.uv}`;
+  });
+
+  dayCard.addEventListener('dayThreeVisible', (ev) => {
+    const { day } = ev.detail;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxWind.innerText = `${day.maxwind_kph}kph`;
+    precipitation.innerText = `${day.totalprecip_mm}mm`;
+    humidity.innerText = `Hum: ${day.avghumidity}%`;
+    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
+    percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
+    visibility.innerText = `${day.avgvis_km}km`;
+    uv.innerText = `${day.uv}`;
+  });
+  dayCard.addEventListener('dayThreeRight', (ev) => {
+    const { day } = ev.detail;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxWind.innerText = `${day.maxwind_kph}kph`;
+    precipitation.innerText = `${day.totalprecip_mm}mm`;
+    humidity.innerText = `Hum: ${day.avghumidity}%`;
+    percentageRain.innerText = `${day.daily_chance_of_rain}%`;
+    percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
+    visibility.innerText = `${day.avgvis_km}km`;
+    uv.innerText = `${day.uv}`;
+  });
   return dayCard;
 }
