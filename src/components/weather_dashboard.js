@@ -6,10 +6,8 @@ function handleTimelineSwitchBtns(ev) {
   const btn = ev.target;
 
   const timelineOuter = document.body.querySelector('.timeline-outer');
-
-  while (timelineOuter.firstChild) {
-    timelineOuter.removeChild(timelineOuter.firstChild);
-  }
+  const timelineInner = document.body.querySelector('.timeline-inner');
+  timelineOuter.removeChild(timelineInner);
 
   switch (btn.id) {
     case 'radio-condition':
