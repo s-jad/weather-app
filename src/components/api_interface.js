@@ -1,9 +1,5 @@
 import { state } from './timeline';
 
-const data = {
-  forecast: {},
-};
-
 function handleHeaderEventDispatch(location, current) {
   const header = document.body.querySelector('.site-header');
 
@@ -71,7 +67,7 @@ function handleShadowTimelineEventDispatch(forecast) {
   timeLines.forEach((timeline) => timeline.dispatchEvent(timelineResponseEvent));
 }
 
-async function getCityWeatherData(city) {
+export default async function getCityWeatherData(city) {
   try {
     const request = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=e1e38ce47b19465289d103419231909&q=${city}&days=3&aqi=no&alerts=no`, { mode: 'cors' });
 
@@ -79,18 +75,11 @@ async function getCityWeatherData(city) {
     const { location, current, forecast } = response;
 
     handleHeaderEventDispatch(location, current);
-    data.forecast = forecast;
-
     handleAstroEventDispatch(forecast.forecastday[0].astro);
     handleDayCardEventDispatch(forecast.forecastday[0], current);
-    handleTimelineEventDispatch(data.forecast);
-    handleShadowTimelineEventDispatch(data.forecast);
+    handleTimelineEventDispatch(forecast);
+    handleShadowTimelineEventDispatch(forecast);
   } catch (error) {
-    console.log(error);
+    console.warn(error);
   }
 }
-
-export {
-  getCityWeatherData,
-  data,
-};
