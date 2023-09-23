@@ -126,5 +126,53 @@ export default function AstroCard() {
     moonPhase.innerText = `Phase: ${astro.moon_phase}`;
   });
 
+  astroCard.addEventListener('dayTwoVisible', (ev) => {
+    const { astro } = ev.detail;
+
+    sunrise.innerText = `Sunrise: ${convertToMilitaryTime(astro.sunrise)}`;
+    sunset.innerText = `Sunset: ${convertToMilitaryTime(astro.sunset)}`;
+    sunlightHours.innerText = calculateSunlightHours(astro.sunrise, astro.sunset);
+
+    moonrise.innerText = `Moonrise: ${convertToMilitaryTime(astro.moonrise)}`;
+    moonset.innerText = `Moonset: ${convertToMilitaryTime(astro.moonset)}`;
+    moonPhase.innerText = `Phase: ${astro.moon_phase}`;
+  });
+
+  astroCard.addEventListener('dayTwoRight', (ev) => {
+    const { astro } = ev.detail;
+
+    sunrise.innerText = `Sunrise: ${convertToMilitaryTime(astro.sunrise)}`;
+    sunset.innerText = `Sunset: ${convertToMilitaryTime(astro.sunset)}`;
+    sunlightHours.innerText = calculateSunlightHours(astro.sunrise, astro.sunset);
+
+    moonrise.innerText = `Moonrise: ${convertToMilitaryTime(astro.moonrise)}`;
+    moonset.innerText = `Moonset: ${convertToMilitaryTime(astro.moonset)}`;
+    moonPhase.innerText = `Phase: ${astro.moon_phase}`;
+  });
+
+  astroCard.addEventListener('dayThreeVisible', (ev) => {
+    const { astro } = ev.detail;
+
+    sunrise.innerText = `Sunrise: ${convertToMilitaryTime(astro.sunrise)}`;
+    sunset.innerText = `Sunset: ${convertToMilitaryTime(astro.sunset)}`;
+    sunlightHours.innerText = calculateSunlightHours(astro.sunrise, astro.sunset);
+
+    moonrise.innerText = `Moonrise: ${convertToMilitaryTime(astro.moonrise)}`;
+    moonset.innerText = `Moonset: ${convertToMilitaryTime(astro.moonset)}`;
+    moonPhase.innerText = `Phase: ${astro.moon_phase}`;
+  });
+
+  astroCard.addEventListener('dayThreeRight', (ev) => {
+    const { astro } = ev.detail;
+
+    sunrise.innerText = `Sunrise: ${convertToMilitaryTime(astro.sunrise)}`;
+    sunset.innerText = `Sunset: ${convertToMilitaryTime(astro.sunset)}`;
+    sunlightHours.innerText = calculateSunlightHours(astro.sunrise, astro.sunset);
+
+    moonrise.innerText = `Moonrise: ${convertToMilitaryTime(astro.moonrise)}`;
+    moonset.innerText = `Moonset: ${convertToMilitaryTime(astro.moonset)}`;
+    moonPhase.innerText = `Phase: ${astro.moon_phase}`;
+  });
+
   return astroCard;
 }
