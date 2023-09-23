@@ -13,15 +13,27 @@ function getTempItems() {
   };
 }
 
-function getDayCardIcons() {
+function getUpperIcons() {
   const thermometerIcon = new Image();
   thermometerIcon.src = '../assets/imgs/thermometer.png';
   thermometerIcon.className = 'day-card-icon thermometer-icon';
+
+  const rainDropIcon = new Image();
+  rainDropIcon.src = '../assets/imgs/raindrop.png';
+  rainDropIcon.className = 'day-card-icon rain-drop-icon';
 
   const windIcon = new Image();
   windIcon.src = '../assets/imgs/wind.png';
   windIcon.className = 'day-card-icon wind-icon';
 
+  return {
+    thermometerIcon,
+    rainDropIcon,
+    windIcon,
+  };
+}
+
+function getLowerFlexIcons() {
   const visIcon = new Image();
   visIcon.src = '../assets/imgs/eye.png';
   visIcon.className = 'day-card-icon visIcon';
@@ -29,10 +41,6 @@ function getDayCardIcons() {
   const snowIcon = new Image();
   snowIcon.src = '../assets/imgs/snow.png';
   snowIcon.className = 'day-card-icon snow-icon';
-
-  const rainDropIcon = new Image();
-  rainDropIcon.src = '../assets/imgs/raindrop.png';
-  rainDropIcon.className = 'day-card-icon rain-drop-icon';
 
   const uvIcon = new Image();
   uvIcon.src = '../assets/imgs/uv.png';
@@ -43,11 +51,8 @@ function getDayCardIcons() {
   pressureIcon.className = 'day-card-icon pressure-icon';
 
   return {
-    thermometerIcon,
-    windIcon,
     visIcon,
     snowIcon,
-    rainDropIcon,
     uvIcon,
     pressureIcon,
   };
@@ -83,19 +88,62 @@ function getWindItems() {
   };
 }
 
+function getLowerFlex() {
+  const {
+    visIcon,
+    snowIcon,
+    uvIcon,
+    pressureIcon,
+  } = getLowerFlexIcons();
+
+  const uvFlex = document.createElement('div');
+  uvFlex.className = 'uv-flex';
+  const uv = document.createElement('p');
+  uv.className = 'day-card-text uv-light';
+  uvFlex.appendChild(uvIcon);
+  uvFlex.appendChild(uv);
+
+  const pressureFlex = document.createElement('div');
+  pressureFlex.className = 'pressure-flex';
+  const pressure = document.createElement('p');
+  pressure.className = 'day-card-text pressure';
+  pressureFlex.appendChild(pressureIcon);
+  pressureFlex.appendChild(pressure);
+
+  const visFlex = document.createElement('div');
+  visFlex.className = 'vis-flex';
+  const visibility = document.createElement('p');
+  visibility.className = 'day-card-text visibility';
+  visFlex.appendChild(visIcon);
+  visFlex.appendChild(visibility);
+
+  const lowerFlex = document.createElement('div');
+  lowerFlex.className = 'lower-flex';
+  const snowFlex = document.createElement('div');
+  snowFlex.className = 'snow-percentage-flex';
+  const percentageSnow = document.createElement('p');
+  percentageSnow.className = 'day-card-text percent-snow';
+
+  snowFlex.appendChild(snowIcon);
+  snowFlex.appendChild(percentageSnow);
+
+  lowerFlex.appendChild(snowFlex);
+  lowerFlex.appendChild(visFlex);
+  lowerFlex.appendChild(uvFlex);
+  lowerFlex.appendChild(pressureFlex);
+
+  return lowerFlex;
+}
+
 export default function DayCard() {
   const dayCard = document.createElement('div');
   dayCard.className = 'day-card';
 
   const {
     thermometerIcon,
-    windIcon,
-    visIcon,
-    snowIcon,
     rainDropIcon,
-    uvIcon,
-    pressureIcon,
-  } = getDayCardIcons();
+    windIcon,
+  } = getUpperIcons();
 
   const {
     maxTemp,
@@ -136,46 +184,15 @@ export default function DayCard() {
   windGrid.appendChild(maxGust);
   windGrid.appendChild(windDirection);
 
-  const uvFlex = document.createElement('div');
-  uvFlex.className = 'uv-flex';
-  const uv = document.createElement('p');
-  uv.className = 'day-card-text uv-light';
-  uvFlex.appendChild(uvIcon);
-  uvFlex.appendChild(uv);
-
-  const pressureFlex = document.createElement('div');
-  pressureFlex.className = 'pressure-flex';
-  const pressure = document.createElement('p');
-  pressure.className = 'day-card-text pressure';
-  pressureFlex.appendChild(pressureIcon);
-  pressureFlex.appendChild(pressure);
-
-  const visFlex = document.createElement('div');
-  visFlex.className = 'vis-flex';
-  const visibility = document.createElement('p');
-  visibility.className = 'day-card-text visibility';
-  visFlex.appendChild(visIcon);
-  visFlex.appendChild(visibility);
-
-  const lowerFlex = document.createElement('div');
-  lowerFlex.className = 'lower-flex';
-  const snowFlex = document.createElement('div');
-  snowFlex.className = 'snow-percentage-flex';
-  const percentageSnow = document.createElement('p');
-  percentageSnow.className = 'day-card-text percent-snow';
-
-  snowFlex.appendChild(snowIcon);
-  snowFlex.appendChild(percentageSnow);
-
-  lowerFlex.appendChild(snowFlex);
-  lowerFlex.appendChild(visFlex);
-  lowerFlex.appendChild(uvFlex);
-  lowerFlex.appendChild(pressureFlex);
-
   dayCard.appendChild(tempGrid);
   dayCard.appendChild(humidityGrid);
   dayCard.appendChild(windGrid);
-  dayCard.appendChild(lowerFlex);
+  dayCard.appendChild(getLowerFlex());
+
+  const percentageSnow = dayCard.querySelector('.percent-snow');
+  const visibility = dayCard.querySelector('.visibility');
+  const uv = dayCard.querySelector('.uv-light');
+  const pressure = dayCard.querySelector('.pressure');
 
   dayCard.addEventListener('dayCardResponse', (ev) => {
     const { day } = ev.detail.forecastDay;
