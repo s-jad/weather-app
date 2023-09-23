@@ -8,22 +8,36 @@ function handleTimelineSwitchBtns(ev) {
   const timelineOuter = document.body.querySelector('.timeline-outer');
   const timelineInner = document.body.querySelector('.timeline-inner');
   timelineOuter.removeChild(timelineInner);
+  const timelineSidebar = timelineOuter.querySelector('.timeline-sidebar');
+  const sidebarInfos = Array.from(timelineSidebar.querySelectorAll('.sidebar-info'));
 
   switch (btn.id) {
     case 'radio-condition':
       timelineOuter.appendChild(state.timelines[0]);
+      sidebarInfos[0].innerText = '';
+      sidebarInfos[1].innerText = '';
+      sidebarInfos[2].innerText = '';
       break;
 
     case 'radio-temp':
       timelineOuter.appendChild(state.timelines[1]);
+      sidebarInfos[0].innerText = 'Max temp:';
+      sidebarInfos[1].innerText = 'Feels like:';
+      sidebarInfos[2].innerText = 'Wind chill:';
       break;
 
     case 'radio-precipitation':
       timelineOuter.appendChild(state.timelines[2]);
+      sidebarInfos[0].innerText = 'Rain Chance:';
+      sidebarInfos[1].innerText = 'Cloud Cover:';
+      sidebarInfos[2].innerText = 'Humidity:';
       break;
 
     case 'radio-wind':
       timelineOuter.appendChild(state.timelines[3]);
+      sidebarInfos[0].innerText = 'Wind speed:';
+      sidebarInfos[1].innerText = 'Gust speed:';
+      sidebarInfos[2].innerText = 'Direction:';
       break;
     default:
       break;
