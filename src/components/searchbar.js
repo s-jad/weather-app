@@ -1,4 +1,4 @@
-import { getCityWeatherData } from './api_interface';
+import getCityWeatherData from './api_interface';
 
 export default function SearchBar() {
   const search = document.createElement('input');
