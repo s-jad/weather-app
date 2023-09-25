@@ -33,6 +33,7 @@ function handleAstroEventDispatch(astro) {
 
 function handleDayCardEventDispatch(forecastDay, current) {
   const dayCard = document.body.querySelector('.day-card');
+  const dashboardDayTitle = document.body.querySelector('.dashboard-day-title');
 
   const dayCardResponseEvent = new CustomEvent('dayCardResponse', {
     detail: {
@@ -42,6 +43,7 @@ function handleDayCardEventDispatch(forecastDay, current) {
   });
 
   dayCard.dispatchEvent(dayCardResponseEvent);
+  dashboardDayTitle.dispatchEvent(dayCardResponseEvent);
 }
 
 function handleTimelineEventDispatch(forecast) {
