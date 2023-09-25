@@ -17,7 +17,7 @@
     padding-top: calc(6.2rem + 0.45vw);
     padding-inline: 0.5rem;
     z-index: 2;
-    min-width: 120px;
+    min-width: 125px;
     height: 100%;
     background: hsl(240, 50%, 20%);
     color: white;
@@ -28,7 +28,20 @@
   & .timeline-inner {
     display: flex;
     flex-wrap: nowrap;
-  
+    
+    & .timeline-day.day-1 {
+      border-left: 0;
+      border-right: 3px solid hsla(240, 50%, 20%, 0.7);
+
+      & .timeline-hour.hour-0 {
+        border-left: 0;
+        border-right: 1px solid hsla(240, 50%, 20%, 0.7);
+        border-top: 1px solid hsla(240, 50%, 20%, 0.7);
+        border-bottom: 1px solid hsla(240, 50%, 20%, 0.7);
+      }
+
+    }
+
     & .timeline-day {
       border-inline: 3px solid hsla(240, 50%, 20%, 0.7);
       height: 100%;
