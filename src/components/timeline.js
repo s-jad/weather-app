@@ -167,6 +167,7 @@ function calcCompassDir(direction) {
     default:
       break;
   }
+  return -1;
 }
 
 function getWindDirIcon(direction) {
@@ -285,6 +286,7 @@ function generateTimeLineObservers(timeline) {
   const dayThreeMidnight = timeline.querySelector('.day-3 .hour-0');
   const astroCard = document.body.querySelector('.astro-card');
   const dayCard = document.body.querySelector('.day-card');
+  const dayTitle = document.body.querySelector('.dashboard-day-title');
 
   const options = {
     root: null,
@@ -307,6 +309,7 @@ function generateTimeLineObservers(timeline) {
       ) {
         const event = new CustomEvent('dayTwoRight', {
           detail: {
+            date: state.currentForecast.forecastday[0].date,
             day: state.currentForecast.forecastday[0].day,
             astro: state.currentForecast.forecastday[0].astro,
           },
@@ -314,11 +317,13 @@ function generateTimeLineObservers(timeline) {
 
         astroCard.dispatchEvent(event);
         dayCard.dispatchEvent(event);
+        dayTitle.dispatchEvent(event);
       } else if (entry.isIntersecting
         && entry.boundingClientRect.x > entry.rootBounds.width / 2
       ) {
         const event = new CustomEvent('dayTwoVisible', {
           detail: {
+            date: state.currentForecast.forecastday[1].date,
             day: state.currentForecast.forecastday[1].day,
             astro: state.currentForecast.forecastday[1].astro,
           },
@@ -326,6 +331,7 @@ function generateTimeLineObservers(timeline) {
 
         astroCard.dispatchEvent(event);
         dayCard.dispatchEvent(event);
+        dayTitle.dispatchEvent(event);
       }
     });
   }, options);
@@ -345,6 +351,7 @@ function generateTimeLineObservers(timeline) {
       ) {
         const event = new CustomEvent('dayThreeRight', {
           detail: {
+            date: state.currentForecast.forecastday[1].date,
             day: state.currentForecast.forecastday[1].day,
             astro: state.currentForecast.forecastday[1].astro,
           },
@@ -352,11 +359,13 @@ function generateTimeLineObservers(timeline) {
 
         astroCard.dispatchEvent(event);
         dayCard.dispatchEvent(event);
+        dayTitle.dispatchEvent(event);
       } else if (entry.isIntersecting
         && entry.boundingClientRect.x > entry.rootBounds.width / 2
       ) {
         const event = new CustomEvent('dayThreeVisible', {
           detail: {
+            date: state.currentForecast.forecastday[2].date,
             day: state.currentForecast.forecastday[2].day,
             astro: state.currentForecast.forecastday[2].astro,
           },
@@ -364,6 +373,7 @@ function generateTimeLineObservers(timeline) {
 
         astroCard.dispatchEvent(event);
         dayCard.dispatchEvent(event);
+        dayTitle.dispatchEvent(event);
       }
     });
   }, options);
