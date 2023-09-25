@@ -80,6 +80,3 @@ select {
 
 /* START OF STYLES */
 
-body {
-    font-size: clamp(16px, calc(1.5rem + 0.4vw), 24px);
-}
