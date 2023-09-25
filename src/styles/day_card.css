@@ -4,7 +4,14 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 35px;
-  padding-block: calc(0.2rem + 0.4vw);
+  padding: calc(0.2rem + 0.4vw);
+  border-radius: 1rem;
+  margin-left: calc(0.3rem + 0.4vw);
+  margin-bottom: calc(0.3rem + 0.4vw);
+  
+  background-image: linear-gradient(72deg, var(--thistle), var(--lemon-chiffon));
+  box-shadow: 0 0 5px var(--penn-blue);
+  color: black;
 
   & .temp-grid {
     grid-column: 1 / 2;
