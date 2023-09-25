@@ -39,9 +39,28 @@ function handleTimelineSwitchBtns(ev) {
       sidebarInfos[1].innerText = 'Gust speed:';
       sidebarInfos[2].innerText = 'Direction:';
       break;
+
     default:
       break;
   }
+}
+
+function getTimelineIcons() {
+  const condition = new Image();
+  condition.src = '../assets/imgs/rain.png';
+  const temp = new Image();
+  temp.src = '../assets/imgs/thermometer.png';
+  const rain = new Image();
+  rain.src = '../assets/imgs/raindrop.png';
+  const wind = new Image();
+  wind.src = '../assets/imgs/wind.png';
+
+  return {
+    condition,
+    temp,
+    rain,
+    wind,
+  };
 }
 
 function generateTimeLineSwitch() {
@@ -50,7 +69,7 @@ function generateTimeLineSwitch() {
 
   switchContainer.innerHTML = `
     <div class="cover-container">
-      <input id="radio-condition" class="invisible-radio radio-one" type="radio" name="timeline-display"/>
+      <input id="radio-condition" class="invisible-radio radio-one" type="radio" name="timeline-display" checked/>
       <div class="cover cover-one"></div>
       <div class="timeline-button show-condition"></div>
     </div>
@@ -75,6 +94,18 @@ function generateTimeLineSwitch() {
   `;
 
   const radioBtns = Array.from(switchContainer.querySelectorAll('.invisible-radio'));
+  const {
+    condition,
+    temp,
+    rain,
+    wind,
+  } = getTimelineIcons();
+  const timelineBtns = Array.from(switchContainer.querySelectorAll('.timeline-button'));
+
+  timelineBtns[0].appendChild(condition);
+  timelineBtns[1].appendChild(temp);
+  timelineBtns[2].appendChild(rain);
+  timelineBtns[3].appendChild(wind);
 
   radioBtns.forEach((btn) => {
     btn.addEventListener('click', handleTimelineSwitchBtns);
@@ -86,10 +117,42 @@ function generateTimeLineSwitch() {
 export default function WeatherDashboard() {
   const weatherDashboard = document.createElement('div');
   weatherDashboard.className = 'weather-dashboard';
+  const centerFlex = document.createElement('div');
+  centerFlex.className = 'center-flex';
+  const dayTitle = document.createElement('h2');
+  dayTitle.className = 'dashboard-day-title';
+
+  dayTitle.addEventListener('dayCardResponse', (ev) => {
+    const { date } = ev.detail.forecastDay;
+    dayTitle.textContent = `${date}`;
+  });
+
+  dayTitle.addEventListener('dayTwoVisible', (ev) => {
+    const { date } = ev.detail;
+    dayTitle.textContent = `${date}`;
+  });
+
+  dayTitle.addEventListener('dayTwoRight', (ev) => {
+    const { date } = ev.detail;
+    dayTitle.textContent = `${date}`;
+  });
+
+  dayTitle.addEventListener('dayThreeVisible', (ev) => {
+    const { date } = ev.detail;
+    dayTitle.textContent = `${date}`;
+  });
+
+  dayTitle.addEventListener('dayThreeRight', (ev) => {
+    const { date } = ev.detail;
+    dayTitle.textContent = `${date}`;
+  });
+
+  centerFlex.appendChild(dayTitle);
+  centerFlex.appendChild(generateTimeLineSwitch());
 
   weatherDashboard.appendChild(DayCard());
   weatherDashboard.appendChild(AstroCard());
-  weatherDashboard.appendChild(generateTimeLineSwitch());
+  weatherDashboard.appendChild(centerFlex);
   weatherDashboard.appendChild(Timeline());
 
   return weatherDashboard;
