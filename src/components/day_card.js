@@ -198,9 +198,9 @@ export default function DayCard() {
     const { day } = ev.detail.forecastDay;
     const { current } = ev.detail;
 
-    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     maxGust.innerText = `${current.gust_kph}kph`;
     windDirection.innerText = `${current.wind_dir}`;
@@ -215,9 +215,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayTwoVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -229,9 +229,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayTwoRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -243,9 +243,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayThreeVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -254,11 +254,12 @@ export default function DayCard() {
     visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
   });
+
   dayCard.addEventListener('dayThreeRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
