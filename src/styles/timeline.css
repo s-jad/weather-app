@@ -1,14 +1,19 @@
 .timeline-outer {
   position: relative;
   overflow-x: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-base-color: transparent;
   display: flex;
   flex-wrap: nowrap;
   height: 100%;
-  
+  background: var(--jet); 
+  color: black; 
+  padding: 0.5rem;
+
   & .timeline-sidebar {
     position: sticky;
     top: 0;
-    left: 0;
+    left: -5px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -19,7 +24,7 @@
     z-index: 2;
     min-width: 125px;
     height: 100%;
-    background: hsl(240, 50%, 20%);
+    background: var(--jet); 
     color: white;
 
     font-size: var(--fsz-16);
@@ -31,25 +36,46 @@
     
     & .timeline-day.day-1 {
       border-left: 0;
-      border-right: 3px solid hsla(240, 50%, 20%, 0.7);
+      border-right: 3px solid var(--penn-blue);
 
       & .timeline-hour.hour-0 {
         border-left: 0;
-        border-right: 1px solid hsla(240, 50%, 20%, 0.7);
-        border-top: 1px solid hsla(240, 50%, 20%, 0.7);
-        border-bottom: 1px solid hsla(240, 50%, 20%, 0.7);
+        border-right: 1px solid var(--jet);
+        border-top: 1px solid var(--jet);
+        border-bottom: 1px solid var(--jet);
       }
 
     }
 
     & .timeline-day {
-      border-inline: 3px solid hsla(240, 50%, 20%, 0.7);
+      border-inline: 3px solid var(--penn-blue);
       height: 100%;
       display: flex;
       flex-wrap: nowrap;
+      background-image: linear-gradient(85deg,
+                        var(--penn-blue),
+                        var(--mid-blue),
+                        var(--uranian-blue), 
+                        var(--lemon-chiffon), 
+                        var(--thistle), 
+                        var(--penn-blue) 90%);
+
+
+      & .timeline-hour.hour-0,
+      & .timeline-hour.hour-1,
+      & .timeline-hour.hour-2,
+      & .timeline-hour.hour-3,
+      & .timeline-hour.hour-4,
+      & .timeline-hour.hour-19,
+      & .timeline-hour.hour-20,
+      & .timeline-hour.hour-21,
+      & .timeline-hour.hour-22,
+      & .timeline-hour.hour-23 {
+        color: white;
+      }
 
       & .timeline-hour {
-        border: 1px solid hsla(240, 50%, 20%, 0.7);
+        border: 1px solid var(--jet);
         width: 100px;
         height: 100%;
         display: flex;
@@ -80,10 +106,12 @@
           }
 
           & .hourly-wind-icon-container {
+            --arrow-red: hsla(0, 90%, 60%);
             height: 60px;
             width: 60px;
             border-radius: 30px;
             border: 2px solid hsla(0, 0%, 0%, 0.5);
+            background: var(--uranian-blue);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -101,7 +129,7 @@
                 height: 45px;
                 min-width: 3px;
                 transform: translateX(250%);
-                background-image: linear-gradient(0deg, black, red);
+                background-image: linear-gradient(0deg, var(--jet), var(--arrow-red));
               }
 
               & .hourly-wind-icon-point {
@@ -111,7 +139,7 @@
                 transform: translateX(-15%);
                 border-left: 8px solid transparent;
                 border-right: 8px solid transparent;
-                border-bottom: 8px solid red;
+                border-bottom: 8px solid var(--arrow-red);
               }
             }
           }
