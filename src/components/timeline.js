@@ -43,9 +43,12 @@ function getWind(hour) {
   hourlyGustKph.className = `hourly-gust-kph h-gust-${hour}`;
   const hourlyWindDirection = document.createElement('p');
   hourlyWindDirection.className = `hourly-wind-dir h-wind-dir-${hour}`;
+  const hourlyWindIcon = document.createElement('div');
+  hourlyWindIcon.className = `hourly-wind-icon-container h-wind-icon-${hour}`;
   infoContainer.appendChild(hourlyWindKph);
   infoContainer.appendChild(hourlyGustKph);
   infoContainer.appendChild(hourlyWindDirection);
+  infoContainer.appendChild(hourlyWindIcon);
 
   return infoContainer;
 }
@@ -127,6 +130,62 @@ function getTimelineInner() {
   return timelineInner;
 }
 
+function calcCompassDir(direction) {
+  switch (direction) {
+    case 'N':
+      return 0;
+    case 'NNE':
+      return 22.5;
+    case 'NE':
+      return 45;
+    case 'ENE':
+      return 57.5;
+    case 'E':
+      return 90;
+    case 'ESE':
+      return 112.5;
+    case 'SE':
+      return 135;
+    case 'SSE':
+      return 157.5;
+    case 'S':
+      return 180;
+    case 'SSW':
+      return 202.5;
+    case 'SW':
+      return 225;
+    case 'WSW':
+      return 247.5;
+    case 'W':
+      return 270;
+    case 'WNW':
+      return 292.5;
+    case 'NW':
+      return 315;
+    case 'NNW':
+      return 337.5;
+    default:
+      break;
+  }
+}
+
+function getWindDirIcon(direction) {
+  const windDirectionInner = document.createElement('div');
+  windDirectionInner.className = 'hourly-wind-icon';
+  const windDirectionLine = document.createElement('div');
+  windDirectionLine.className = 'hourly-wind-icon-line';
+  const windDirectionPoint = document.createElement('div');
+  windDirectionPoint.className = 'hourly-wind-icon-point';
+
+  const angle = calcCompassDir(direction);
+
+  windDirectionInner.style.transform = `rotate(${angle}deg)`;
+  windDirectionInner.appendChild(windDirectionLine);
+  windDirectionInner.appendChild(windDirectionPoint);
+
+  return windDirectionInner;
+}
+
 function handleShadowTimelineLoading(forecast, index) {
   let days = [];
 
@@ -158,9 +217,9 @@ function handleShadowTimelineLoading(forecast, index) {
           const feelsLike = hour.querySelector('.hourly-feels-like');
           const windChill = hour.querySelector('.hourly-wind-chill');
 
-          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}c`;
-          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}c`;
-          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}c`;
+          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}°c`;
+          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}°c`;
+          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}°c`;
         });
       });
       break;
@@ -193,10 +252,12 @@ function handleShadowTimelineLoading(forecast, index) {
           const windKph = hour.querySelector('.hourly-wind-kph');
           const gustKph = hour.querySelector('.hourly-gust-kph');
           const windDirection = hour.querySelector('.hourly-wind-dir');
+          const windDirIconContainer = hour.querySelector('.hourly-wind-icon-container');
 
           windKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
           gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
           windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
+          windDirIconContainer.appendChild(getWindDirIcon(windDirection.innerText));
         });
       });
       break;
@@ -318,17 +379,6 @@ function Timeline() {
 
   timelineOuter.addEventListener('timelineApiResponse', (ev) => {
     const { forecast } = ev.detail;
-
-    for (let i = 0; i < 3; i += 1) {
-      for (let j = 0; j < 24; j += 1) {
-        const hci = document.body.querySelector(`.day-${i + 1} .hci-${j}`);
-        const hct = document.body.querySelector(`.day-${i + 1} .hct-${j}`);
-
-        hci.src = `https:${forecast.forecastday[i].hour[j].condition.icon}`;
-        hct.innerText = forecast.forecastday[i].hour[j].condition.text;
-      }
-    }
-
     state.currentForecast = forecast;
   });
 
@@ -343,8 +393,6 @@ function Timeline() {
   }
 
   timelineOuter.appendChild(state.timelines[0]);
-  window.addEventListener('DOMContentLoaded', () => {
-  });
 
   return timelineOuter;
 }
