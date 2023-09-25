@@ -155,5 +155,9 @@ export default function WeatherDashboard() {
   weatherDashboard.appendChild(centerFlex);
   weatherDashboard.appendChild(Timeline());
 
+  const bottomBar = document.createElement('div');
+  bottomBar.className = 'bottom-bar';
+  weatherDashboard.appendChild(bottomBar);
+
   return weatherDashboard;
 }
