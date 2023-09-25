@@ -67,7 +67,7 @@ function convertToMilitaryTime(time) {
     formattedTime = `${timeStr.slice(0, 2)}:${timeStr.slice(2)}`;
   } else if (timeNum >= 1000) {
     const timeStr = String(timeNum);
-    formattedTime = `${timeStr.slice(0, 1)}:${timeStr.slice(1)}`;
+    formattedTime = `${timeStr.slice(0, 2)}:${timeStr.slice(2)}`;
   } else {
     const timeStr = String(timeNum);
     formattedTime = `0${timeStr.slice(0, 1)}:${timeStr.slice(1)}`;
