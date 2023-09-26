@@ -9,6 +9,7 @@ function getConditions(hour) {
   infoContainer.className = 'timeline-hour-info-container';
   const hourlyConditionIcon = new Image();
   hourlyConditionIcon.className = `hourly-condition-icon hci-${hour}`;
+  hourlyConditionIcon.alt = 'Current Weather';
   const hourlyConditionText = document.createElement('p');
   hourlyConditionText.className = `hourly-condition-text hct-${hour}`;
 

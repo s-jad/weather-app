@@ -17,14 +17,17 @@ function getUpperIcons() {
   const thermometerIcon = new Image();
   thermometerIcon.src = '../assets/imgs/thermometer.png';
   thermometerIcon.className = 'day-card-icon thermometer-icon';
+  thermometerIcon.alt = 'Thermometer';
 
   const rainDropIcon = new Image();
   rainDropIcon.src = '../assets/imgs/raindrop.png';
   rainDropIcon.className = 'day-card-icon rain-drop-icon';
+  rainDropIcon.alt = 'Raindrop';
 
   const windIcon = new Image();
   windIcon.src = '../assets/imgs/wind.png';
   windIcon.className = 'day-card-icon wind-icon';
+  windIcon.alt = 'A gust of wind';
 
   return {
     thermometerIcon,
@@ -37,18 +40,22 @@ function getLowerFlexIcons() {
   const visIcon = new Image();
   visIcon.src = '../assets/imgs/eye.png';
   visIcon.className = 'day-card-icon visIcon';
+  visIcon.alt = 'Eye';
 
   const snowIcon = new Image();
   snowIcon.src = '../assets/imgs/snow.png';
   snowIcon.className = 'day-card-icon snow-icon';
+  snowIcon.alt = 'Snowflake';
 
   const uvIcon = new Image();
   uvIcon.src = '../assets/imgs/uv.png';
   uvIcon.className = 'day-card-icon uv-icon';
+  uvIcon.alt = 'Sunglasses';
 
   const pressureIcon = new Image();
   pressureIcon.src = '../assets/imgs/pressure.png';
   pressureIcon.className = 'day-card-icon pressure-icon';
+  pressureIcon.alt = 'Pressure gauge';
 
   return {
     visIcon,

@@ -16,6 +16,7 @@ function getSunMoonIcon() {
   sunMoonIcon.src = '../assets/imgs/sun-moon.svg';
   sunMoonIcon.style.height = '120px';
   sunMoonIcon.style.width = '120px';
+  sunMoonIcon.alt = 'A half sun, half moon';
 
   sunMoonIconInner.appendChild(sunIconBg);
   sunMoonIconInner.appendChild(moonIconBg);
