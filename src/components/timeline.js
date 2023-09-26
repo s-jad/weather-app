@@ -271,12 +271,25 @@ function handleShadowTimelineLoading(forecast, index) {
 function getTimelineSidebar() {
   const timelineSidebar = document.createElement('div');
   timelineSidebar.className = 'timeline-sidebar';
+  const timelineBorderTop = document.createElement('div');
+  timelineBorderTop.className = 'timeline-border-top';
+  const timelineBorderTopInner = document.createElement('div');
+  timelineBorderTopInner.className = 'timeline-border-top-inner';
+  timelineBorderTop.appendChild(timelineBorderTopInner);
+  timelineSidebar.appendChild(timelineBorderTop);
 
   for (let i = 0; i < 3; i += 1) {
     const info = document.createElement('p');
     info.className = 'sidebar-info';
     timelineSidebar.appendChild(info);
   }
+
+  const timelineBorderBottom = document.createElement('div');
+  timelineBorderBottom.className = 'timeline-border-bottom';
+  const timelineBorderBottomInner = document.createElement('div');
+  timelineBorderBottomInner.className = 'timeline-border-bottom-inner';
+  timelineBorderBottom.appendChild(timelineBorderBottomInner);
+  timelineSidebar.appendChild(timelineBorderBottom);
 
   return timelineSidebar;
 }
