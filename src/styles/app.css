@@ -38,7 +38,10 @@
   --thistle-07: hsla(290, 35%, 83%, 0.7);
   --lemon-chiffon-07: hsla(58, 74%, 85%, 0.7);
   --uranian-blue-07: hsla(208, 97%, 85%, 0.7);
+  --uranian-blue-03: hsla(208, 97%, 85%, 0.3);
   --penn-blue-07: hsla(240, 51%, 20%, 0.7);
+
+  --inline-padding: 2vw;
 }
 
 h1 {
@@ -67,5 +70,3 @@ body {
   background: var(--jet);
   color: var(--font-color);
 }
-
-
