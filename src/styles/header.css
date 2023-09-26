@@ -2,7 +2,7 @@
   width: 100%;
   max-height: 25vh;
   min-height: 120px;
-  padding: 1rem 3rem;
+  padding: 1rem var(--inline-padding);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows : repeat(2, min-content) 50px;
@@ -68,7 +68,7 @@
     & .latitude-longitude {
       display: none;
     }
-    & .search-weather {
+    & input.search-weather {
       grid-column: 1 / 6;
     }
   }
