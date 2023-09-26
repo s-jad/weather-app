@@ -47,8 +47,8 @@ function getWind(hour) {
   hourlyWindIcon.className = `hourly-wind-icon-container h-wind-icon-${hour}`;
   infoContainer.appendChild(hourlyWindKph);
   infoContainer.appendChild(hourlyGustKph);
-  infoContainer.appendChild(hourlyWindDirection);
   infoContainer.appendChild(hourlyWindIcon);
+  infoContainer.appendChild(hourlyWindDirection);
 
   return infoContainer;
 }
@@ -300,7 +300,7 @@ function generateTimeLineObservers(timeline) {
     }
 
     entries.forEach((entry) => {
-      if (entry.rootBounds.width === 0) {
+      if (entry.boundingClientRect.width === 0) {
         return;
       }
 
@@ -342,7 +342,7 @@ function generateTimeLineObservers(timeline) {
     }
 
     entries.forEach((entry) => {
-      if (entry.rootBounds.width === 0) {
+      if (entry.boundingClientRect.width === 0) {
         return;
       }
 
@@ -403,6 +403,9 @@ function Timeline() {
   }
 
   timelineOuter.appendChild(state.timelines[0]);
+  const rightBar = document.createElement('div');
+  rightBar.className = 'right-bar';
+  timelineOuter.appendChild(rightBar);
 
   return timelineOuter;
 }
