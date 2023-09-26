@@ -184,9 +184,12 @@ export default function DayCard() {
   windGrid.appendChild(maxGust);
   windGrid.appendChild(windDirection);
 
-  dayCard.appendChild(tempGrid);
-  dayCard.appendChild(humidityGrid);
-  dayCard.appendChild(windGrid);
+  const upperFlex = document.createElement('div');
+  upperFlex.className = 'upper-flex';
+  upperFlex.appendChild(tempGrid);
+  upperFlex.appendChild(humidityGrid);
+  upperFlex.appendChild(windGrid);
+  dayCard.appendChild(upperFlex);
   dayCard.appendChild(getLowerFlex());
 
   const percentageSnow = dayCard.querySelector('.percent-snow');
