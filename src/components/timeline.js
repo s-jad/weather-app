@@ -219,9 +219,9 @@ function handleShadowTimelineLoading(forecast, index) {
           const feelsLike = hour.querySelector('.hourly-feels-like');
           const windChill = hour.querySelector('.hourly-wind-chill');
 
-          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}°c`;
-          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}°c`;
-          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}°c`;
+          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}°C`;
+          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}°C`;
+          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}°C`;
         });
       });
       break;
@@ -269,6 +269,46 @@ function handleShadowTimelineLoading(forecast, index) {
   }
 }
 
+function switchToImperial(ev, metric) {
+  const btn = ev.target;
+  btn.classList.add('active');
+  metric.classList.remove('active');
+}
+
+function switchToMetric(ev, imperial) {
+  const btn = ev.target;
+  btn.classList.add('active');
+  imperial.classList.remove('active');
+}
+
+function getImperialMetricSwitch() {
+  const container = document.createElement('div');
+  container.className = 'imperial-metric-container';
+  const imperialBtn = document.createElement('div');
+  imperialBtn.className = 'imperial-btn';
+  imperialBtn.ariaRoleDescription = 'button';
+  imperialBtn.textContent = '°F';
+  const metricBtn = document.createElement('div');
+  metricBtn.className = 'metric-btn';
+  metricBtn.ariaRoleDescription = 'button';
+  metricBtn.textContent = '°C';
+
+  imperialBtn.onclick = (ev) => {
+    switchToImperial(ev, metricBtn);
+  };
+  metricBtn.onclick = (ev) => {
+    switchToMetric(ev, imperialBtn);
+  };
+
+  const cover = document.createElement('div');
+  cover.className = 'imperial-metric-cover';
+  container.appendChild(cover);
+  container.appendChild(metricBtn);
+  container.appendChild(imperialBtn);
+
+  return container;
+}
+
 function getTimelineSidebar() {
   const timelineSidebar = document.createElement('div');
   timelineSidebar.className = 'timeline-sidebar';
@@ -291,7 +331,11 @@ function getTimelineSidebar() {
   timelineBorderBottomInner.className = 'timeline-border-bottom-inner';
   timelineBorderBottom.appendChild(timelineBorderBottomInner);
   timelineSidebar.appendChild(timelineBorderBottom);
+  const firstInfo = timelineSidebar.querySelector('.sidebar-info:first-of-type');
 
+  timelineSidebar.addEventListener('apiLoaded', () => {
+    timelineSidebar.insertBefore(getImperialMetricSwitch(), firstInfo);
+  });
   return timelineSidebar;
 }
 
