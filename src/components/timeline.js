@@ -25,9 +25,9 @@ function getTemps(hour) {
   const hourlyTemp = document.createElement('p');
   hourlyTemp.className = `hourly-temp h-temp-${hour}`;
   const hourlyFeelsLike = document.createElement('p');
-  hourlyFeelsLike.className = `hourly-feels-like h-fl-${hour}`;
+  hourlyFeelsLike.className = `hourly-feels-like h-temp-${hour}`;
   const hourlyWindChill = document.createElement('p');
-  hourlyWindChill.className = `hourly-wind-chill h-wc-${hour}`;
+  hourlyWindChill.className = `hourly-wind-chill h-temp-${hour}`;
   infoContainer.appendChild(hourlyTemp);
   infoContainer.appendChild(hourlyFeelsLike);
   infoContainer.appendChild(hourlyWindChill);
@@ -41,9 +41,9 @@ function getWind(hour) {
   const hourlyWindKph = document.createElement('p');
   hourlyWindKph.className = `hourly-wind-kph h-wind-${hour}`;
   const hourlyGustKph = document.createElement('p');
-  hourlyGustKph.className = `hourly-gust-kph h-gust-${hour}`;
+  hourlyGustKph.className = `hourly-gust-kph h-wind-${hour}`;
   const hourlyWindDirection = document.createElement('p');
-  hourlyWindDirection.className = `hourly-wind-dir h-wind-dir-${hour}`;
+  hourlyWindDirection.className = `hourly-wind-dir h-wind-${hour}`;
   const hourlyWindIcon = document.createElement('div');
   hourlyWindIcon.className = `hourly-wind-icon-container h-wind-icon-${hour}`;
   infoContainer.appendChild(hourlyWindKph);
@@ -269,16 +269,78 @@ function handleShadowTimelineLoading(forecast, index) {
   }
 }
 
+function getSwitchableMeasurements() {
+  const displayedTemps = Array.from(document.body.querySelectorAll('.day-card p[class*="temp"]'));
+  const shadowTemps = Array.from(state.timelines[1].querySelectorAll('p[class*="temp"]'));
+  const allTemps = [...displayedTemps, ...shadowTemps];
+  const displayedSpeeds = Array.from(document.body.querySelectorAll('.day-card p[class*="wind"]'));
+  const shadowSpeeds = Array.from(state.timelines[3]).slice(0, 1);
+  const allSpeeds = [...displayedSpeeds, ...shadowSpeeds];
+
+  const prec = document.body.querySelector('.precipitation');
+  const vis = document.body.querySelector('.visibility');
+  const allDistances = [prec, vis];
+
+  return {
+    allTemps,
+    allSpeeds,
+    allDistances,
+  }
+}
+
+function convertTemps(temps, to) {
+  if (to === 0) {
+    temps.forEach((temp) => {
+      console.log(temp);
+      const [c, _] = temp.innerText.split('°');
+      const fm = '°F';
+      const parsedC = parseFloat(c, 10);
+      const f = Math.round(((parsedC * (9 / 5)) + 32) * 10) / 10;
+      console.log("f => ", f);
+      temp.innerText = `${f}${fm}`;
+    });
+  }
+  if (to === 1) {
+    temps.forEach((temp) => {
+      console.log(temp);
+      const [f, _] = temp.innerText.split('°');
+      const cm = '°C';
+      const parsedF = parseFloat(f, 10);
+      const c = Math.round(((parsedF - 32) * (5 / 9)) * 10) / 10;
+      console.log("c => ", c);
+      temp.innerText = `${c}${cm}`;
+    });
+  }
+}
+
 function switchToImperial(ev, metric) {
+  console.log("switch to imperial function");
   const btn = ev.target;
   btn.classList.add('active');
   metric.classList.remove('active');
+
+  const {
+    allTemps,
+    allSpeeds,
+    allDistances
+  } = getSwitchableMeasurements();
+
+  convertTemps(allTemps, 1);
 }
 
 function switchToMetric(ev, imperial) {
+  console.log("switch to Metric function");
   const btn = ev.target;
   btn.classList.add('active');
   imperial.classList.remove('active');
+
+  const {
+    allTemps,
+    allSpeeds,
+    allDistances
+  } = getSwitchableMeasurements();
+
+  convertTemps(allTemps, 0);
 }
 
 function getImperialMetricSwitch() {
@@ -293,18 +355,20 @@ function getImperialMetricSwitch() {
   metricBtn.ariaRoleDescription = 'button';
   metricBtn.textContent = '°C';
 
-  imperialBtn.onclick = (ev) => {
-    switchToImperial(ev, metricBtn);
-  };
-  metricBtn.onclick = (ev) => {
-    switchToMetric(ev, imperialBtn);
-  };
-
   const cover = document.createElement('div');
   cover.className = 'imperial-metric-cover';
-  container.appendChild(cover);
   container.appendChild(metricBtn);
   container.appendChild(imperialBtn);
+  container.appendChild(cover);
+
+  imperialBtn.addEventListener('click', (ev) => {
+    console.log("switch to imperial event");
+    switchToImperial(ev, metricBtn);
+  });
+  metricBtn.addEventListener('click', (ev) => {
+    console.log("switch to metric event");
+    switchToMetric(ev, imperialBtn);
+  });
 
   return container;
 }
