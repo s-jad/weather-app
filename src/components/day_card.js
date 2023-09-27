@@ -1,3 +1,11 @@
+import thermometerPng from '../assets/imgs/thermometer.png';
+import rainDropPng from '../assets/imgs/raindrop.png';
+import windPng from '../assets/imgs/wind.png';
+import snowPng from '../assets/imgs/snow.png';
+import uvPng from '../assets/imgs/uv.png';
+import eyePng from '../assets/imgs/eye.png';
+import pressurePng from '../assets/imgs/pressure.png';
+
 function getTempItems() {
   const maxTemp = document.createElement('p');
   maxTemp.className = 'day-card-text max-temp';
@@ -15,17 +23,17 @@ function getTempItems() {
 
 function getUpperIcons() {
   const thermometerIcon = new Image();
-  thermometerIcon.src = '../assets/imgs/thermometer.png';
+  thermometerIcon.src = thermometerPng;
   thermometerIcon.className = 'day-card-icon thermometer-icon';
   thermometerIcon.alt = 'Thermometer';
 
   const rainDropIcon = new Image();
-  rainDropIcon.src = '../assets/imgs/raindrop.png';
+  rainDropIcon.src = rainDropPng;
   rainDropIcon.className = 'day-card-icon rain-drop-icon';
   rainDropIcon.alt = 'Raindrop';
 
   const windIcon = new Image();
-  windIcon.src = '../assets/imgs/wind.png';
+  windIcon.src = windPng;
   windIcon.className = 'day-card-icon wind-icon';
   windIcon.alt = 'A gust of wind';
 
@@ -38,22 +46,22 @@ function getUpperIcons() {
 
 function getLowerFlexIcons() {
   const visIcon = new Image();
-  visIcon.src = '../assets/imgs/eye.png';
+  visIcon.src = eyePng;
   visIcon.className = 'day-card-icon visIcon';
   visIcon.alt = 'Eye';
 
   const snowIcon = new Image();
-  snowIcon.src = '../assets/imgs/snow.png';
+  snowIcon.src = snowPng;
   snowIcon.className = 'day-card-icon snow-icon';
   snowIcon.alt = 'Snowflake';
 
   const uvIcon = new Image();
-  uvIcon.src = '../assets/imgs/uv.png';
+  uvIcon.src = uvPng;
   uvIcon.className = 'day-card-icon uv-icon';
   uvIcon.alt = 'Sunglasses';
 
   const pressureIcon = new Image();
-  pressureIcon.src = '../assets/imgs/pressure.png';
+  pressureIcon.src = pressurePng;
   pressureIcon.className = 'day-card-icon pressure-icon';
   pressureIcon.alt = 'Pressure gauge';
 
@@ -208,9 +216,9 @@ export default function DayCard() {
     const { day } = ev.detail.forecastDay;
     const { current } = ev.detail;
 
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     maxGust.innerText = `${current.gust_kph}kph`;
     windDirection.innerText = `${current.wind_dir}`;
@@ -225,9 +233,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayTwoVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -239,9 +247,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayTwoRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -253,9 +261,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayThreeVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
@@ -267,9 +275,9 @@ export default function DayCard() {
 
   dayCard.addEventListener('dayThreeRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°c`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°c`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°c`;
+    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
+    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
+    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     precipitation.innerText = `${day.totalprecip_mm}mm`;
     humidity.innerText = `Hum: ${day.avghumidity}%`;
