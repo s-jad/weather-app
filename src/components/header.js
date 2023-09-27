@@ -3,6 +3,7 @@ import SearchBar from './searchbar';
 function currentConditionIcon() {
   const currentIcon = new Image();
   currentIcon.className = 'current-condition-icon';
+  currentIcon.alt = 'The current weather';
 
   const currentText = document.createElement('h3');
   currentText.className = 'current-condition-text';
