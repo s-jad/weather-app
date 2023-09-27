@@ -7,6 +7,23 @@ import eyePng from '../assets/imgs/eye.png';
 import pressurePng from '../assets/imgs/pressure.png';
 
 function getTempItems() {
+  const maxTempFlex = document.createElement('div');
+  maxTempFlex.className = 'max-temp-flex';
+  const minTempFlex = document.createElement('div');
+  minTempFlex.className = 'min-temp-flex';
+  const avgTempFlex = document.createElement('div');
+  avgTempFlex.className = 'avg-temp-flex';
+
+  const maxLabel = document.createElement('p');
+  maxLabel.className = 'max-label';
+  maxLabel.innerText = 'Max: ';
+  const minLabel = document.createElement('p');
+  minLabel.className = 'min-label';
+  minLabel.innerText = 'Min: ';
+  const avgLabel = document.createElement('p');
+  avgLabel.className = 'avg-label';
+  avgLabel.innerText = 'Avg: ';
+
   const maxTemp = document.createElement('p');
   maxTemp.className = 'day-card-text max-temp';
   const minTemp = document.createElement('p');
@@ -14,10 +31,20 @@ function getTempItems() {
   const avgTemp = document.createElement('p');
   avgTemp.className = 'day-card-text avg-temp';
 
+  maxTempFlex.appendChild(maxLabel);
+  maxTempFlex.appendChild(maxTemp);
+  minTempFlex.appendChild(minLabel);
+  minTempFlex.appendChild(minTemp);
+  avgTempFlex.appendChild(avgLabel);
+  avgTempFlex.appendChild(avgTemp);
+
   return {
     maxTemp,
     minTemp,
     avgTemp,
+    maxTempFlex,
+    minTempFlex,
+    avgTempFlex,
   };
 }
 
@@ -92,7 +119,7 @@ function getWindItems() {
   const maxWind = document.createElement('p');
   maxWind.className = 'day-card-text max-wind';
   const maxGust = document.createElement('p');
-  maxGust.className = 'day-card-text max-gust';
+  maxGust.className = 'day-card-text max-wind-gust';
   const windDirection = document.createElement('p');
   windDirection.className = 'day-card-text wind-direction';
 
@@ -164,6 +191,9 @@ export default function DayCard() {
     maxTemp,
     minTemp,
     avgTemp,
+    maxTempFlex,
+    minTempFlex,
+    avgTempFlex,
   } = getTempItems();
 
   const {
@@ -181,9 +211,9 @@ export default function DayCard() {
   const tempGrid = document.createElement('div');
   tempGrid.className = 'temp-grid';
   tempGrid.appendChild(thermometerIcon);
-  tempGrid.appendChild(maxTemp);
-  tempGrid.appendChild(avgTemp);
-  tempGrid.appendChild(minTemp);
+  tempGrid.appendChild(maxTempFlex);
+  tempGrid.appendChild(avgTempFlex);
+  tempGrid.appendChild(minTempFlex);
 
   const humidityGrid = document.createElement('div');
   humidityGrid.className = 'humidity-grid';
@@ -216,9 +246,9 @@ export default function DayCard() {
     const { day } = ev.detail.forecastDay;
     const { current } = ev.detail;
 
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
+    maxTemp.innerText = `${day.maxtemp_c}°C`;
+    minTemp.innerText = `${day.mintemp_c}°C`;
+    avgTemp.innerText = `${day.avgtemp_c}°C`;
     maxWind.innerText = `${day.maxwind_kph}kph`;
     maxGust.innerText = `${current.gust_kph}kph`;
     windDirection.innerText = `${current.wind_dir}`;
