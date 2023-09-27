@@ -69,6 +69,13 @@ function handleShadowTimelineEventDispatch(forecast) {
   timeLines.forEach((timeline) => timeline.dispatchEvent(timelineResponseEvent));
 }
 
+function handleShowImperialMetricSwitch() {
+  const timelineSidebar = document.body.querySelector('.timeline-sidebar');
+
+  const sidebarEvent = new CustomEvent('apiLoaded', {});
+  timelineSidebar.dispatchEvent(sidebarEvent);
+}
+
 export default async function getCityWeatherData(city) {
   try {
     const request = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=e1e38ce47b19465289d103419231909&q=${city}&days=3&aqi=no&alerts=no`, { mode: 'cors' });
@@ -81,6 +88,7 @@ export default async function getCityWeatherData(city) {
     handleDayCardEventDispatch(forecast.forecastday[0], current);
     handleTimelineEventDispatch(forecast);
     handleShadowTimelineEventDispatch(forecast);
+    handleShowImperialMetricSwitch();
   } catch (error) {
     console.warn(error);
   }
