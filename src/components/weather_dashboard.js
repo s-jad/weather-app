@@ -1,3 +1,8 @@
+import rainPng from '../assets/imgs/rain.png';
+import thermometerPng from '../assets/imgs/thermometer.png';
+import windPng from '../assets/imgs/wind.png';
+import rainDropPng from '../assets/imgs/raindrop.png';
+
 import { state, Timeline } from './timeline';
 import AstroCard from './astro_card';
 import DayCard from './day_card';
@@ -48,13 +53,17 @@ function handleTimelineSwitchBtns(ev) {
 
 function getTimelineIcons() {
   const condition = new Image();
-  condition.src = '../assets/imgs/rain.png';
+  condition.src = rainPng;
+  condition.alt = 'A raincloud';
   const temp = new Image();
-  temp.src = '../assets/imgs/thermometer.png';
+  temp.src = thermometerPng;
+  temp.alt = 'A thermometer';
   const rain = new Image();
-  rain.src = '../assets/imgs/raindrop.png';
+  rain.src = rainDropPng;
+  rain.alt = 'A raindrop';
   const wind = new Image();
-  wind.src = '../assets/imgs/wind.png';
+  wind.src = windPng;
+  wind.alt = 'A gust of wind';
 
   return {
     condition,
