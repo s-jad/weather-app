@@ -1,3 +1,5 @@
+import sunMoonSvg from '../assets/imgs/sun-moon.svg';
+
 function getSunMoonIcon() {
   const sunMoonIconOuter = document.createElement('div');
   sunMoonIconOuter.className = 'sun-moon-icon-outer';
@@ -13,7 +15,7 @@ function getSunMoonIcon() {
 
   const sunMoonIcon = new Image();
   sunMoonIcon.className = 'sun-moon-icon';
-  sunMoonIcon.src = '../assets/imgs/sun-moon.svg';
+  sunMoonIcon.src = sunMoonSvg;
   sunMoonIcon.style.height = '120px';
   sunMoonIcon.style.width = '120px';
   sunMoonIcon.alt = 'A half sun, half moon';
