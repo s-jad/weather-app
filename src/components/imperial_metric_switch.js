@@ -40,6 +40,56 @@ function convertTemps(temps, to) {
   }
 }
 
+function convertSpeeds(speeds, to) {
+  if (to === 'imperial') {
+    speeds.forEach((speed) => {
+      const s = speed.innerText.split('k')[0];
+      const parsedS = parseFloat(s, 10);
+      const sp = Math.round((parsedS * 1.609344) * 10) / 10;
+      speed.innerText = `${sp}mph`
+    });
+  } else if (to === 'metric') {
+    speeds.forEach((speed) => {
+      const s = speed.innerText.split('m')[0];
+      const parsedS = parseFloat(s, 10);
+      const sp = Math.round((parsedS / 1.609344) * 10) / 10;
+      speed.innerText = `${sp}kph`;
+    });
+  }
+}
+
+function convertDistances(distances, to) {
+  if (to === 'imperial') {
+    distances.forEach((dist) => {
+      if (dist.innerText.includes('mm')) {
+        const d = dist.innerText.split('m')[0];
+        const parsedD = parseFloat(d, 10);
+        const inches = Math.round((parsedD / 25.4) * 10) / 10;
+        dist.innerText = `${inches}inches`;
+      } else if (dist.innerText.includes('km')) {
+        const d = dist.innerText.split('k')[0];
+        const parsedD = parseFloat(d, 10);
+        const miles = Math.round((parsedD / 1.609344) * 10) / 10;
+        dist.innerText = `${miles}miles`;
+      }
+    });
+  } else if (to === 'metric') {
+    distances.forEach((dist) => {
+      if (dist.innerText.includes('inches')) {
+        const d = dist.innerText.split('m')[0];
+        const parsedD = parseFloat(d, 10);
+        const mm = Math.round((parsedD * 25.4) * 10) / 10;
+        dist.innerText = `${mm}mm`;
+      } else if (dist.innerText.includes('miles')) {
+        const d = dist.innerText.split('m')[0];
+        const parsedD = parseFloat(d, 10);
+        const km = Math.round((parsedD * 1.609344) * 10) / 10;
+        dist.innerText = `${km}km`;
+      }
+    });
+  }
+}
+
 function switchToImperial(ev, imperial) {
   const btn = ev.target;
   btn.classList.add('active');
@@ -48,10 +98,12 @@ function switchToImperial(ev, imperial) {
   const {
     allTemps,
     allSpeeds,
-    allDistances
+    allDistances,
   } = getSwitchableMeasurements();
 
   convertTemps(allTemps, 'imperial');
+  convertSpeeds(allSpeeds, 'imperial');
+  convertDistances(allDistances, 'imperial');
 }
 
 function switchToMetric(ev, metric) {
@@ -62,16 +114,20 @@ function switchToMetric(ev, metric) {
   const {
     allTemps,
     allSpeeds,
-    allDistances
+    allDistances,
   } = getSwitchableMeasurements();
 
   convertTemps(allTemps, 'metric');
+  convertSpeeds(allSpeeds, 'metric');
+  convertDistances(allDistances, 'metric');
 }
 
 export default function imperialMetricSwitch(ev, imperial, metric) {
   if (ev.target.className === ('metric-btn')) {
+    state.currentMeasurementSystem = 'imperial';
     switchToImperial(ev, imperial);
   } else if (ev.target.className === 'imperial-btn') {
+    state.currentMeasurementSystem = 'metric';
     switchToMetric(ev, metric);
   }
 }
