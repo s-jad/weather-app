@@ -20,11 +20,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Development",
+      title: 'Development',
+      lang: 'en',
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: "src/assets", to: "assets" }
+        { from: 'src/assets', to: 'assets' },
       ],
     }),
   ],
@@ -33,6 +34,24 @@ module.exports = {
     static: './dist',
   },
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        apiInterface: {
+          test: /[\\/]api_interface[\\/]/,
+          name: 'api_interface',
+          chunks: 'all',
+          priority: 10,
+          enforce: true,
+        },
+        imperialMetricSwitch: {
+          test: /[\\/]imperial_metric_switch[\\/]/,
+          name: 'imperial_metric_switch',
+          chunks: 'all',
+          priority: 10,
+          enforce: true,
+        },
+      },
+    },
     runtimeChunk: 'single',
   },
   output: {
@@ -56,5 +75,10 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
+  },
+  resolve: {
+    fallback: {
+      api_interface: require.resolve('./src/components/api_interface.js'),
+    },
   },
 };
