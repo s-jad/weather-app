@@ -72,4 +72,8 @@
       grid-column: 1 / 6;
     }
   }
+
+  .weather-dashboard > .timeline-outer > .timeline-sidebar {
+    width: 120px;
+  }
 }
