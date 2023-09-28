@@ -85,6 +85,7 @@
           height: var(--invisible-radio-size);
           width: var(--invisible-radio-size);
           z-index: 4;
+          cursor: pointer;
         }
       }
     } 

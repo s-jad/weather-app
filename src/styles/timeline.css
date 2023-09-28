@@ -49,6 +49,7 @@
       box-shadow: 0 0 0 1px var(--lemon-chiffon),
                   0 0 5px var(--thistle);
       color: white;
+      cursor: pointer;
 
       & .imperial-metric-cover {
         position: absolute;
