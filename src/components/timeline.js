@@ -172,7 +172,13 @@ function calcCompassDir(direction) {
   return -1;
 }
 
-function getWindDirIcon(direction) {
+function getWindDirIcon(direction, parent) {
+  const currentIcon = parent.querySelector('.hourly-wind-icon');
+
+  if (currentIcon) {
+    parent.removeChild(currentIcon);
+  }
+
   const windDirectionInner = document.createElement('div');
   windDirectionInner.className = 'hourly-wind-icon';
   const windDirectionLine = document.createElement('div');
@@ -271,7 +277,7 @@ function handleShadowTimelineLoading(forecast, index) {
             gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_mph}mph`;
           }
           windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
-          windDirIconContainer.appendChild(getWindDirIcon(windDirection.innerText));
+          windDirIconContainer.appendChild(getWindDirIcon(windDirection.innerText, windDirIconContainer));
         });
       });
       break;
