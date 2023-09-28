@@ -5,6 +5,7 @@ import snowPng from '../assets/imgs/snow.png';
 import uvPng from '../assets/imgs/uv.png';
 import eyePng from '../assets/imgs/eye.png';
 import pressurePng from '../assets/imgs/pressure.png';
+import { state } from './timeline';
 
 function getTempItems() {
   const maxTempFlex = document.createElement('div');
@@ -121,7 +122,7 @@ function getWindItems() {
   const maxGust = document.createElement('p');
   maxGust.className = 'day-card-text max-wind-gust';
   const windDirection = document.createElement('p');
-  windDirection.className = 'day-card-text wind-direction';
+  windDirection.className = 'day-card-text w-direction';
 
   return {
     maxWind,
@@ -245,75 +246,129 @@ export default function DayCard() {
   dayCard.addEventListener('dayCardResponse', (ev) => {
     const { day } = ev.detail.forecastDay;
     const { current } = ev.detail;
-
-    maxTemp.innerText = `${day.maxtemp_c}°C`;
-    minTemp.innerText = `${day.mintemp_c}°C`;
-    avgTemp.innerText = `${day.avgtemp_c}°C`;
-    maxWind.innerText = `${day.maxwind_kph}kph`;
-    maxGust.innerText = `${current.gust_kph}kph`;
-    windDirection.innerText = `${current.wind_dir}`;
-    precipitation.innerText = `${day.totalprecip_mm}mm`;
+    if (state.currentMeasurementSystem === 'metric') {
+      maxTemp.innerText = `${day.maxtemp_c}°C`;
+      minTemp.innerText = `${day.mintemp_c}°C`;
+      avgTemp.innerText = `${day.avgtemp_c}°C`;
+      maxWind.innerText = `${day.maxwind_kph}kph`;
+      maxGust.innerText = `${current.gust_kph}kph`;
+      windDirection.innerText = `${current.wind_dir}`;
+      precipitation.innerText = `${day.totalprecip_mm}mm`;
+      visibility.innerText = `${day.avgvis_km}km`;
+    } else if (state.currentMeasurementSystem === 'imperial') {
+      maxTemp.innerText = `${day.maxtemp_f}°F`;
+      minTemp.innerText = `${day.mintemp_f}°F`;
+      avgTemp.innerText = `${day.avgtemp_f}°F`;
+      maxWind.innerText = `${day.maxwind_mph}mph`;
+      maxGust.innerText = `${current.gust_mph}mph`;
+      windDirection.innerText = `${current.wind_dir}`;
+      precipitation.innerText = `${day.totalprecip_in}inches`;
+      visibility.innerText = `${day.avgvis_miles}miles`;
+    }
     humidity.innerText = `Hum: ${day.avghumidity}%`;
     percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
     pressure.innerText = `${current.pressure_mb}mb`;
   });
 
   dayCard.addEventListener('dayTwoVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
-    maxWind.innerText = `${day.maxwind_kph}kph`;
-    precipitation.innerText = `${day.totalprecip_mm}mm`;
+
+    if (state.currentMeasurementSystem === 'metric') {
+      maxTemp.innerText = `${day.maxtemp_c}°C`;
+      minTemp.innerText = `${day.mintemp_c}°C`;
+      avgTemp.innerText = `${day.avgtemp_c}°C`;
+      maxWind.innerText = `${day.maxwind_kph}kph`;
+      precipitation.innerText = `${day.totalprecip_mm}mm`;
+      visibility.innerText = `${day.avgvis_km}km`;
+    } else if (state.currentMeasurementSystem === 'imperial') {
+      maxTemp.innerText = `${day.maxtemp_f}°F`;
+      minTemp.innerText = `${day.mintemp_f}°F`;
+      avgTemp.innerText = `${day.avgtemp_f}°F`;
+      maxWind.innerText = `${day.maxwind_mph}mph`;
+      precipitation.innerText = `${day.totalprecip_in}inches`;
+      visibility.innerText = `${day.avgvis_miles}miles`;
+    }
+
     humidity.innerText = `Hum: ${day.avghumidity}%`;
     percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
   });
 
   dayCard.addEventListener('dayTwoRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
-    maxWind.innerText = `${day.maxwind_kph}kph`;
-    precipitation.innerText = `${day.totalprecip_mm}mm`;
+
+    if (state.currentMeasurementSystem === 'metric') {
+      maxTemp.innerText = `${day.maxtemp_c}°C`;
+      minTemp.innerText = `${day.mintemp_c}°C`;
+      avgTemp.innerText = `${day.avgtemp_c}°C`;
+      maxWind.innerText = `${day.maxwind_kph}kph`;
+      precipitation.innerText = `${day.totalprecip_mm}mm`;
+      visibility.innerText = `${day.avgvis_km}km`;
+    } else if (state.currentMeasurementSystem === 'imperial') {
+      maxTemp.innerText = `${day.maxtemp_f}°F`;
+      minTemp.innerText = `${day.mintemp_f}°F`;
+      avgTemp.innerText = `${day.avgtemp_f}°F`;
+      maxWind.innerText = `${day.maxwind_mph}mph`;
+      precipitation.innerText = `${day.totalprecip_in}inches`;
+      visibility.innerText = `${day.avgvis_miles}miles`;
+    }
+
     humidity.innerText = `Hum: ${day.avghumidity}%`;
     percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
   });
 
   dayCard.addEventListener('dayThreeVisible', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
-    maxWind.innerText = `${day.maxwind_kph}kph`;
-    precipitation.innerText = `${day.totalprecip_mm}mm`;
+
+    if (state.currentMeasurementSystem === 'metric') {
+      maxTemp.innerText = `${day.maxtemp_c}°C`;
+      minTemp.innerText = `${day.mintemp_c}°C`;
+      avgTemp.innerText = `${day.avgtemp_c}°C`;
+      maxWind.innerText = `${day.maxwind_kph}kph`;
+      precipitation.innerText = `${day.totalprecip_mm}mm`;
+      visibility.innerText = `${day.avgvis_km}km`;
+    } else if (state.currentMeasurementSystem === 'imperial') {
+      maxTemp.innerText = `${day.maxtemp_f}°F`;
+      minTemp.innerText = `${day.mintemp_f}°F`;
+      avgTemp.innerText = `${day.avgtemp_f}°F`;
+      maxWind.innerText = `${day.maxwind_mph}mph`;
+      precipitation.innerText = `${day.totalprecip_in}inches`;
+      visibility.innerText = `${day.avgvis_miles}miles`;
+    }
+
     humidity.innerText = `Hum: ${day.avghumidity}%`;
     percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
   });
 
   dayCard.addEventListener('dayThreeRight', (ev) => {
     const { day } = ev.detail;
-    maxTemp.innerText = `Max: ${day.maxtemp_c}°C`;
-    minTemp.innerText = `Min: ${day.mintemp_c}°C`;
-    avgTemp.innerText = `Avg: ${day.avgtemp_c}°C`;
-    maxWind.innerText = `${day.maxwind_kph}kph`;
-    precipitation.innerText = `${day.totalprecip_mm}mm`;
+
+    if (state.currentMeasurementSystem === 'metric') {
+      maxTemp.innerText = `${day.maxtemp_c}°C`;
+      minTemp.innerText = `${day.mintemp_c}°C`;
+      avgTemp.innerText = `${day.avgtemp_c}°C`;
+      maxWind.innerText = `${day.maxwind_kph}kph`;
+      precipitation.innerText = `${day.totalprecip_mm}mm`;
+      visibility.innerText = `${day.avgvis_km}km`;
+    } else if (state.currentMeasurementSystem === 'imperial') {
+      maxTemp.innerText = `${day.maxtemp_f}°F`;
+      minTemp.innerText = `${day.mintemp_f}°F`;
+      avgTemp.innerText = `${day.avgtemp_f}°F`;
+      maxWind.innerText = `${day.maxwind_mph}mph`;
+      precipitation.innerText = `${day.totalprecip_in}inches`;
+      visibility.innerText = `${day.avgvis_miles}miles`;
+    }
+
     humidity.innerText = `Hum: ${day.avghumidity}%`;
     percentageRain.innerText = `${day.daily_chance_of_rain}%`;
     percentageSnow.innerText = `${day.daily_chance_of_snow}%`;
-    visibility.innerText = `${day.avgvis_km}km`;
     uv.innerText = `${day.uv}`;
   });
   return dayCard;
