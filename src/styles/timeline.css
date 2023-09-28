@@ -56,16 +56,40 @@
         left: 50px;
         width: 50px;
         height: 25px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         background: var(--jet);
         box-shadow: inset 3px 0 5px var(--thistle);
+        
+        transition: border-radius 300ms ease-in-out,
+                    left 300ms ease-in-out;
+      }
+
+      & .imperial-btn.active ~ .imperial-metric-cover {
+        border-top-right-radius: 9999px;
+        border-bottom-right-radius: 9999px;
+        left: 50px;
+      }
+
+
+      & .metric-btn.active ~ .imperial-metric-cover {
+        border-top-left-radius: 9999px;
+        border-bottom-left-radius: 9999px;
+        left: 0;
       }
 
       & .imperial-btn {
         text-align: center; 
+        width: 50px;
+        height: 25px;
       }
 
       & .metric-btn {
         text-align: center;
+        width: 50px;
+        height: 25px;
       }
     }
     & .sidebar-info {
