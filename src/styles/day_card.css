@@ -10,6 +10,7 @@
   
   background-image: linear-gradient(72deg, var(--thistle), var(--lemon-chiffon));
   box-shadow: 0 0 5px var(--penn-blue);
+  font-weight: 500;
   color: black;
 
   & .upper-flex {
@@ -33,15 +34,21 @@
       width: var(--large-icon-size);
     }
 
-    & .max-temp {
+    & .max-temp-flex {
+      display: flex;
+      gap: 0.5ch;
       grid-column: 2 / 3;
       grid-row: 1 / 2;
     }
-    & .avg-temp {
+    & .avg-temp-flex {
+      display: flex;
+      gap: 0.5ch;
       grid-column: 2 / 3;
       grid-row: 2 / 3;
     }
-    & .min-temp {
+    & .min-temp-flex {
+      display: flex;
+      gap: 0.5ch;
       grid-column: 2 / 3;
       grid-row: 3 / 4;
     }
