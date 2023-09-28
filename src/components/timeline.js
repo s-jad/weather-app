@@ -2,6 +2,7 @@ const state = {
   currentTimeline: 0,
   timelines: [],
   currentForecast: {},
+  currentMeasurementSystem: 'metric',
 };
 
 function getConditions(hour) {
@@ -218,10 +219,16 @@ function handleShadowTimelineLoading(forecast, index) {
           const temp = hour.querySelector('.hourly-temp');
           const feelsLike = hour.querySelector('.hourly-feels-like');
           const windChill = hour.querySelector('.hourly-wind-chill');
-
-          temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}°C`;
-          feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}°C`;
-          windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}°C`;
+          
+          if (state.currentMeasurementSystem === 'metric') {
+            temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_c}°C`;
+            feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_c}°C`;
+            windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_c}°C`;
+          } else if (state.currentMeasurementSystem === 'imperial') {
+            temp.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].temp_f}°F`;
+            feelsLike.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].feelslike_f}°F`;
+            windChill.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].windchill_f}°F`;
+          }
         });
       });
       break;
@@ -255,9 +262,14 @@ function handleShadowTimelineLoading(forecast, index) {
           const gustKph = hour.querySelector('.hourly-gust-kph');
           const windDirection = hour.querySelector('.hourly-wind-dir');
           const windDirIconContainer = hour.querySelector('.hourly-wind-icon-container');
-
-          windKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
-          gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
+          
+          if (state.currentMeasurementSystem === 'metric') {
+            windKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].wind_kph}kph`;
+            gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_kph}kph`;
+          } else if (state.currentMeasurementSystem === 'imperial') {
+            windKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].wind_mph}mph`;
+            gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_mph}mph`;
+          }
           windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
           windDirIconContainer.appendChild(getWindDirIcon(windDirection.innerText));
         });
