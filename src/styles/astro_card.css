@@ -8,7 +8,7 @@
   margin-bottom: var(--inline-padding);
   margin-right: var(--inline-padding);
   margin-left: var(--inline-padding);
-  font-weight: 600;
+  font-weight: 500;
   box-shadow: 0 0 5px var(--penn-blue);
 
   & .sun-container {
@@ -36,12 +36,12 @@
       
         & .sun-bg {
           position: absolute;
-          left: 34px;
-          top: 20px;
-          width: 80px;
-          height: 80px;
+          left: 30px;
+          top: 19px;
+          width: 87px;
+          height: 87px;
           background-color: transparent;
-          background-image: radial-gradient(circle 40px at 50% 100%,
+          background-image: radial-gradient(circle 41px at 50% 100%,
                                             #ff6910 0%,
                                             #f6b256 30%,
                                             #f7f4b3 80%,
@@ -52,12 +52,12 @@
         }
         & .moon-bg {
           position: absolute;
-          left: 34px;
+          left: 32px;
           top: 20px;
-          width: 80px;
-          height: 80px;
+          width: 87px;
+          height: 87px;
           background-color: transparent;
-          background-image: radial-gradient(circle 40px at 50% 100%, 
+          background-image: radial-gradient(circle 42px at 50% 100%, 
                                             #d4d4e0 0%, 
                                             #e0dad4 40%,
                                             #d4e0e0 80%, 
