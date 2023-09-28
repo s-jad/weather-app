@@ -71,6 +71,9 @@
     & input.search-weather {
       grid-column: 1 / 6;
     }
+    & .condition-flex {
+      flex-direction: column;
+    }
   }
 
   .weather-dashboard > .timeline-outer > .timeline-sidebar {
