@@ -157,7 +157,7 @@
   }
 }
 
-@media (width < 770px) {
+@media (width < 772px) {
   .weather-dashboard {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 150px 150px 50px min-content 10px;
