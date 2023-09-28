@@ -5,7 +5,7 @@ function getSwitchableMeasurements() {
   const shadowTemps = Array.from(state.timelines[1].querySelectorAll('p[class*="temp"]'));
   const allTemps = [...displayedTemps, ...shadowTemps];
   const displayedSpeeds = Array.from(document.body.querySelectorAll('.day-card p[class*="wind"]'));
-  const shadowSpeeds = Array.from(state.timelines[3]).slice(0, 1);
+  const shadowSpeeds = Array.from(state.timelines[3].querySelectorAll('p[class*="wind"]'));
   const allSpeeds = [...displayedSpeeds, ...shadowSpeeds];
 
   const prec = document.body.querySelector('.precipitation');

@@ -44,7 +44,7 @@ function getWind(hour) {
   const hourlyGustKph = document.createElement('p');
   hourlyGustKph.className = `hourly-gust-kph h-wind-${hour}`;
   const hourlyWindDirection = document.createElement('p');
-  hourlyWindDirection.className = `hourly-wind-dir h-wind-${hour}`;
+  hourlyWindDirection.className = `hourly-direction h-dir-${hour}`;
   const hourlyWindIcon = document.createElement('div');
   hourlyWindIcon.className = `hourly-wind-icon-container h-wind-icon-${hour}`;
   infoContainer.appendChild(hourlyWindKph);
@@ -266,7 +266,7 @@ function handleShadowTimelineLoading(forecast, index) {
         hours.forEach((hour, hourIndex) => {
           const windKph = hour.querySelector('.hourly-wind-kph');
           const gustKph = hour.querySelector('.hourly-gust-kph');
-          const windDirection = hour.querySelector('.hourly-wind-dir');
+          const windDirection = hour.querySelector('.hourly-direction');
           const windDirIconContainer = hour.querySelector('.hourly-wind-icon-container');
           
           if (state.currentMeasurementSystem === 'metric') {
