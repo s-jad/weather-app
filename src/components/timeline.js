@@ -269,80 +269,6 @@ function handleShadowTimelineLoading(forecast, index) {
   }
 }
 
-function getSwitchableMeasurements() {
-  const displayedTemps = Array.from(document.body.querySelectorAll('.day-card p[class*="temp"]'));
-  const shadowTemps = Array.from(state.timelines[1].querySelectorAll('p[class*="temp"]'));
-  const allTemps = [...displayedTemps, ...shadowTemps];
-  const displayedSpeeds = Array.from(document.body.querySelectorAll('.day-card p[class*="wind"]'));
-  const shadowSpeeds = Array.from(state.timelines[3]).slice(0, 1);
-  const allSpeeds = [...displayedSpeeds, ...shadowSpeeds];
-
-  const prec = document.body.querySelector('.precipitation');
-  const vis = document.body.querySelector('.visibility');
-  const allDistances = [prec, vis];
-
-  return {
-    allTemps,
-    allSpeeds,
-    allDistances,
-  }
-}
-
-function convertTemps(temps, to) {
-  if (to === 0) {
-    temps.forEach((temp) => {
-      console.log(temp);
-      const [c, _] = temp.innerText.split('°');
-      const fm = '°F';
-      const parsedC = parseFloat(c, 10);
-      const f = Math.round(((parsedC * (9 / 5)) + 32) * 10) / 10;
-      console.log("f => ", f);
-      temp.innerText = `${f}${fm}`;
-    });
-  }
-  if (to === 1) {
-    temps.forEach((temp) => {
-      console.log(temp);
-      const [f, _] = temp.innerText.split('°');
-      const cm = '°C';
-      const parsedF = parseFloat(f, 10);
-      const c = Math.round(((parsedF - 32) * (5 / 9)) * 10) / 10;
-      console.log("c => ", c);
-      temp.innerText = `${c}${cm}`;
-    });
-  }
-}
-
-function switchToImperial(ev, metric) {
-  console.log("switch to imperial function");
-  const btn = ev.target;
-  btn.classList.add('active');
-  metric.classList.remove('active');
-
-  const {
-    allTemps,
-    allSpeeds,
-    allDistances
-  } = getSwitchableMeasurements();
-
-  convertTemps(allTemps, 1);
-}
-
-function switchToMetric(ev, imperial) {
-  console.log("switch to Metric function");
-  const btn = ev.target;
-  btn.classList.add('active');
-  imperial.classList.remove('active');
-
-  const {
-    allTemps,
-    allSpeeds,
-    allDistances
-  } = getSwitchableMeasurements();
-
-  convertTemps(allTemps, 0);
-}
-
 function getImperialMetricSwitch() {
   const container = document.createElement('div');
   container.className = 'imperial-metric-container';
@@ -361,14 +287,31 @@ function getImperialMetricSwitch() {
   container.appendChild(imperialBtn);
   container.appendChild(cover);
 
-  imperialBtn.addEventListener('click', (ev) => {
-    console.log("switch to imperial event");
-    switchToImperial(ev, metricBtn);
+  let imMeSwitch;
+  let importExecuted = false;
+
+  container.addEventListener('click', (ev) => {
+    if (!importExecuted) {
+      import(/* webpackChunkName: "imperial_metric_switch" */ './imperial_metric_switch')
+        .then((module) => {
+          return module.default;
+        })
+        .then((imperialMetricSwitch) => {
+          imMeSwitch = imperialMetricSwitch;
+          importExecuted = true;
+          continueSwitchExecution(ev);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    } else {
+      continueSwitchExecution(ev);
+    }
   });
-  metricBtn.addEventListener('click', (ev) => {
-    console.log("switch to metric event");
-    switchToMetric(ev, imperialBtn);
-  });
+
+  function continueSwitchExecution(ev) {
+    imMeSwitch(ev, imperialBtn, metricBtn);
+  }
 
   return container;
 }
@@ -397,8 +340,13 @@ function getTimelineSidebar() {
   timelineSidebar.appendChild(timelineBorderBottom);
   const firstInfo = timelineSidebar.querySelector('.sidebar-info:first-of-type');
 
+  let switchLoaded = false;
   timelineSidebar.addEventListener('apiLoaded', () => {
+    if (switchLoaded) {
+      return;
+    }
     timelineSidebar.insertBefore(getImperialMetricSwitch(), firstInfo);
+    switchLoaded = true;
   });
   return timelineSidebar;
 }
