@@ -45,14 +45,14 @@ function convertSpeeds(speeds, to) {
     speeds.forEach((speed) => {
       const s = speed.innerText.split('k')[0];
       const parsedS = parseFloat(s, 10);
-      const sp = Math.round((parsedS * 1.609344) * 10) / 10;
+      const sp = Math.round((parsedS / 1.609344) * 10) / 10;
       speed.innerText = `${sp}mph`
     });
   } else if (to === 'metric') {
     speeds.forEach((speed) => {
       const s = speed.innerText.split('m')[0];
       const parsedS = parseFloat(s, 10);
-      const sp = Math.round((parsedS / 1.609344) * 10) / 10;
+      const sp = Math.round((parsedS * 1.609344) * 10) / 10;
       speed.innerText = `${sp}kph`;
     });
   }
@@ -70,6 +70,7 @@ function convertDistances(distances, to) {
         const d = dist.innerText.split('k')[0];
         const parsedD = parseFloat(d, 10);
         const miles = Math.round((parsedD / 1.609344) * 10) / 10;
+        console.log(`${parsedD}km = ${miles}miles`);
         dist.innerText = `${miles}miles`;
       }
     });
@@ -84,6 +85,7 @@ function convertDistances(distances, to) {
         const d = dist.innerText.split('m')[0];
         const parsedD = parseFloat(d, 10);
         const km = Math.round((parsedD * 1.609344) * 10) / 10;
+        console.log(`${parsedD}miles = ${km}km`);
         dist.innerText = `${km}km`;
       }
     });
