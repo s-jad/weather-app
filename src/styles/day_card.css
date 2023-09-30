@@ -4,12 +4,14 @@
   display: grid;
   grid-template-rows: 1fr 35px;
   padding: calc(0.2rem + 0.4vw);
+  border: 1px solid hsla(0, 0%, 0%, 0.3);
   border-radius: 1rem;
   margin-left: var(--inline-padding);
   margin-bottom: 0.5rem;
   
   background-image: linear-gradient(72deg, var(--thistle), var(--lemon-chiffon));
-  box-shadow: 0 0 5px var(--penn-blue);
+  box-shadow: 0 0 2px 1px hsla(0, 0%, 0%, 0.3),
+              0 0 5px var(--penn-blue);
   font-weight: 500;
   color: black;
 

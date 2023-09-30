@@ -1,15 +1,14 @@
 .astro-card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border: 1px solid hsla(0, 0% 0%, 0.3);
   background-image: linear-gradient(-72deg, var(--penn-blue), var(--lemon-chiffon));
   padding: calc(0.2rem + 0.4vw);
   border-radius: 1rem;
   margin-bottom: 0.5rem;
-  margin-right: var(--inline-padding);
-  margin-left: var(--inline-padding);
+  margin-inline: var(--inline-padding);
   font-weight: 500;
-  box-shadow: 0 0 5px var(--penn-blue);
+  box-shadow: 0 0 2px 1px hsla(0, 0%, 0%, 0.3),
+              0 0 5px var(--penn-blue);
 
   & .sun-container {
     position: relative;

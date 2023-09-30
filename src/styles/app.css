@@ -37,6 +37,10 @@
   --inline-padding: 2vw;
 }
 
+html {
+  background: var(--jet);
+}
+
 h1 {
   font-size: var(--fsz-20);
 }
