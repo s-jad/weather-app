@@ -19,7 +19,7 @@ function handleHeaderEventDispatch(location, current) {
   header.dispatchEvent(currentConditionResponseEvent);
 }
 
-function handleAstroEventDispatch(astro) {
+function handleAstroCardEventDispatch(astro) {
   const astroCard = document.body.querySelector('.astro-card');
 
   const astroResponseEvent = new CustomEvent('astroApiResponse', {
@@ -79,12 +79,11 @@ function handleShowImperialMetricSwitch() {
 export default async function getCityWeatherData(city) {
   try {
     const request = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=e1e38ce47b19465289d103419231909&q=${city}&days=3&aqi=no&alerts=no`, { mode: 'cors' });
-
     const response = await request.json();
     const { location, current, forecast } = response;
 
     handleHeaderEventDispatch(location, current);
-    handleAstroEventDispatch(forecast.forecastday[0].astro);
+    handleAstroCardEventDispatch(forecast.forecastday[0].astro);
     handleDayCardEventDispatch(forecast.forecastday[0], current);
     handleTimelineEventDispatch(forecast);
     handleShadowTimelineEventDispatch(forecast);

@@ -132,47 +132,7 @@ function getTimelineInner() {
   return timelineInner;
 }
 
-function calcCompassDir(direction) {
-  switch (direction) {
-    case 'N':
-      return 0;
-    case 'NNE':
-      return 22.5;
-    case 'NE':
-      return 45;
-    case 'ENE':
-      return 57.5;
-    case 'E':
-      return 90;
-    case 'ESE':
-      return 112.5;
-    case 'SE':
-      return 135;
-    case 'SSE':
-      return 157.5;
-    case 'S':
-      return 180;
-    case 'SSW':
-      return 202.5;
-    case 'SW':
-      return 225;
-    case 'WSW':
-      return 247.5;
-    case 'W':
-      return 270;
-    case 'WNW':
-      return 292.5;
-    case 'NW':
-      return 315;
-    case 'NNW':
-      return 337.5;
-    default:
-      break;
-  }
-  return -1;
-}
-
-function getWindDirIcon(direction, parent) {
+function getWindDirIcon(windDegree, parent) {
   const currentIcon = parent.querySelector('.hourly-wind-icon');
 
   if (currentIcon) {
@@ -186,9 +146,7 @@ function getWindDirIcon(direction, parent) {
   const windDirectionPoint = document.createElement('div');
   windDirectionPoint.className = 'hourly-wind-icon-point';
 
-  const angle = calcCompassDir(direction);
-
-  windDirectionInner.style.transform = `rotate(${angle}deg)`;
+  windDirectionInner.style.transform = `rotate(${windDegree}deg)`;
   windDirectionInner.appendChild(windDirectionLine);
   windDirectionInner.appendChild(windDirectionPoint);
 
@@ -277,7 +235,8 @@ function handleShadowTimelineLoading(forecast, index) {
             gustKph.innerText = `${forecast.forecastday[dayIndex].hour[hourIndex].gust_mph}mph`;
           }
           windDirection.innerText = forecast.forecastday[dayIndex].hour[hourIndex].wind_dir;
-          windDirIconContainer.appendChild(getWindDirIcon(windDirection.innerText, windDirIconContainer));
+          const windDegree = forecast.forecastday[dayIndex].hour[hourIndex].wind_degree;
+          windDirIconContainer.appendChild(getWindDirIcon(windDegree, windDirIconContainer));
         });
       });
       break;
