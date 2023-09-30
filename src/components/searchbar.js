@@ -31,5 +31,6 @@ export default function SearchBar() {
   function continueSearchExecution(search) {
     gcwd(search);
   }
+
   return search;
 }
